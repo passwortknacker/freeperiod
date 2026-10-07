@@ -35,6 +35,13 @@ Fixed rules for Codex live in `AGENTS.md` (created in M0; do not repeat them in 
 | 8 | resume of 6 | 01a117c2-… | Device Tasks 10–12: 198 tests; commit dcd96dd |
 | 9 | gpt-6-astra/high | 01a11813-0a4c-7020-8b81-854675f0a080 | 3 design drafts as HTML boards (draft 1 = owner notes: soft, grounded sans, timeline/ruler, calm, subtle) |
 
+| 10–11 | astra resume of 9 | 01a11813-… | Combined draft 4 → refined draft 5 (final design reference) |
+| 12 | gpt-6-astra/high read-only | 01a1189b-8ee2-7d40-916d-6938f4702311 | Review spec rev 2 + plan part 2 → 14 binding decisions |
+| 13 | gpt-6.1-sol/high | 01a118a0-a60d-7e90-83bb-a61633d096de | Round A engine v2 (parallel to 14) |
+| 14 | gpt-6-astra/high | 01a118a0-e435-70d1-bd90-18c211b2f96e | Round B1 design system (all screens except Today) |
+
+Device: Marvin's S22 Ultra via Wi-Fi debugging (`adb connect 192.168.178.21:<port>`; port changes, pairing already done for this laptop).
+
 Start rounds with `aufpasser\runden\start.ps1 -N <n> [-Model m] [-Resume id] [-ReadOnly]`.
 HTML mockups → PNG: headless Edge (`msedge --headless=new --screenshot=… --window-size=…`) from a temp dir without spaces.
 
