@@ -102,3 +102,40 @@ Choose **Interval** if the owner prefers confident graphic design and stronger d
 - In this Today state no period is ongoing, so **Period started** is primary and **Log today** remains secondary. The entry shows no flow and no start on April 12; an end-period control belongs to an ongoing-period state.
 - Build and Robolectric/Roborazzi checks are not run: this round only changes static design files, and the prescribed Gradle check writes outside the scope fence. No app screenshot tests or reference images are added or changed. Local browser review artifacts stay under `.review/` inside this directory.
 - **Verified offline in Chrome 154:** all 12 phone frames measure 360 × 780 px; all nine gaps measure 24 px; all controls meet 48 × 48 px; default content fits without horizontal overflow or vertical clipping. Computed visible text contrast passes AA thresholds in the rendered fallback fonts; essential control and calendar outlines were also checked against 3:1. All three rendered boards were visually inspected. Named Google Fonts remain unverified offline.
+
+## 4 · Combined
+
+[Open draft-4.html](draft-4.html)
+
+**Idea:** The owner's selected combination brings Daylight's warm cream and slightly richer coral together with Fieldnote's typography and opposing rounded corners. A horizontal mini timeline sits beside the large **12.**, while History uses Interval's vertical columns inside the same visual system.
+
+| Token | Light | Dark |
+|---|---|---|
+| Background / surface | `#FBF7F2` / `#FFFDF9` | `#211E1C` / `#302724` |
+| Text / secondary text | `#302923` / `#6E6159` | `#FBF2E9` / `#C6B5A9` |
+| Action / action text | `#EFA78F` / `#302923` | `#EFAC93` / `#302923` |
+| Selected surface | `#F6D1C0` | `#604034` |
+| Recorded period / outline | `#EFA78F` / `#8E5E4C` | `#EFAC93` / `#EFAC93` |
+| Prediction outline | `#71645C` | `#D1BAAD` |
+| Chart fill / outline | `#EFA78F` / `#8E5E4C` | `#EFAC93` / `#EFAC93` |
+
+**Fonts:** Bricolage Grotesque 500–700 for headings and numerals; DM Sans 400–700 for controls and text, as in Fieldnote. Both OFL, with the same offline fallback fonts and Google Fonts links as draft 2.
+
+**Signature:** A coral full stop after the large cycle-day numeral, beside a horizontal recorded-start / today / likely-start timeline. The solid period segment, today ring with entry dot, and dashed predicted segment use the calendar's marker language; full prediction wording and basis remain below.
+
+**Panels and chart:** Fieldnote's opposing corner shapes carry through cards, primary actions, selected chips, and navigation. The shared averages panel uses coral with dark text; the five History columns retain their shared zero baseline, values above, dates below, hatched excluded cycle, caption, and excluded-cycle card with its prediction-use toggle. Thin dark outlines keep the soft coral chart and calendar fills identifiable against the cream background.
+
+**Selection:** No checkmarks on chips, faces, symptoms, or the saved-status line. Selected entries combine a coral fill with a 2 px border, heavier text, and `aria-pressed`; all five mood faces retain their labels. The calendar, collapsed detail rows, and supplied data are preserved.
+
+**Motion:** Brief selection-fill fades (100–120 ms) and detail-row reveals (160 ms); no idle motion or chart growth on entry. Honour reduced motion. These remain design notes, with no JavaScript or animation required by the board.
+
+| EN | DE |
+|---|---|
+| Choose what you want to record. | Wähle, was du festhalten möchtest. |
+| Your entry is saved. | Dein Eintrag ist gespeichert. |
+
+**Trade-off:** The numeral is 78 px instead of Fieldnote's 86 px so the 178 px timeline can stay alongside it. Its date and marker labels are 11 px, with the full-size prediction below; the board retains 48 px controls, four 360 × 780 px phones, and 24 px gaps. Native larger-text layouts should stack this pair instead of shrinking either part.
+
+**Checked in this round:** `python -B -`, 26 in-memory structural, content, geometry-budget, fallback-font measurement, and contrast checks passed, exit 0. The 26 palette-pair measurements have minima of 5.60:1 for text and 3.23:1 for essential outlines; decorative brand/full-stop accents are not information-bearing text. Fallback timeline labels have at least 26 px horizontal separation; closed Day entry and History content budgets are 730/732 px and 649.8/666 px respectively.
+
+**Verification limit:** This round did not launch a browser, write preview images, or fetch fonts: a new Chrome session would write profile files outside the two-file scope fence. These are static fit and contrast checks, not a fresh browser-rendered overflow check; named-font rendering still needs owner/Claude review. No build, app tests, or screenshot tests were run or changed. The original README content and drafts 1–3 remain untouched.

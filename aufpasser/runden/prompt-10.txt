@@ -1,0 +1,36 @@
+Round 10 – combined draft (resumed). Scope fence: write ONLY `docs/design/drafts/draft-4.html` and
+append a "## 4 · Combined" section to `docs/design/drafts/README.md`. Touch nothing else.
+
+The owner loved the three drafts ("amazing work") and chose a combination. Build ONE new board
+`draft-4.html` with exactly the same 4-screen series and content as before (Today light, Day
+entry, History, Today dark; 360×780 phones, 24 px gaps, same data).
+
+Owner's decisions (verbatim where it matters):
+1. Colour palette of draft 1 (Daylight): "soft and grounded, nice … the colors could be a little
+   touch stronger but the general mood is perfect." → keep Daylight's warm cream background and
+   coral family, but raise saturation/depth slightly (a touch, not a lot) for accent, period
+   fills, selected states and dark mode equivalents. Keep AA contrast.
+2. "I very much like the colored full stop after the 12, we keep that." → large cycle-day
+   numeral with the coral full stop.
+3. "I do prefer the font and box style of 2." → Fieldnote typography (Bricolage Grotesque for
+   headings/numerals, DM Sans for controls/text) and Fieldnote's box/card style (its corner
+   shapes, panel treatment, borders).
+4. "The ruler of 1 adds nothing, and the tick chart of 3 is a bit too hard. We try the mini
+   timeline of 2 but put it horizontal next to the 12." → remove the 7-day ruler; on the Today
+   card place the large "12." on the left and, to its right, a HORIZONTAL mini timeline in the
+   Fieldnote style (period start Apr 1 → today Apr 12 → likely Apr 28–30, with the same marker
+   language: solid for recorded period, ring for today, dashed for predicted, small labels).
+   Must fit and stay legible at 360 px width; prediction sentence + basis + actions below.
+5. "No tick marks on selected day entries on page 2, the color highlight is enough!" → remove
+   all checkmarks from selected chips/faces/symptoms. Selected state = filled colour highlight
+   (plus slightly stronger border/text weight so it is not colour-only for accessibility – no
+   tick icons).
+6. "In the history section we take the bar chart from 3." → Interval's vertical bar chart
+   (values above bars, months below, excluded cycle hatched, caption "hatched = excluded",
+   excluded-cycle card with toggle below), restyled in this board's palette and fonts; keep the
+   averages header in the Fieldnote panel style.
+Everything else (calendar, legend, bottom nav, day-entry collapsed rows, dark mode) follows the
+combined style consistently.
+
+Board title: "Combined". Quality bar as before; verify fit/overflow/contrast yourself.
+Answer: file list + 3 lines on what you changed and any trade-off.
