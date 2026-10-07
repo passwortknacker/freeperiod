@@ -24,3 +24,10 @@ Fixed rules for Codex live in `AGENTS.md` (created in M0; do not repeat them in 
 | Round | Model/effort | Thread | Result |
 |---|---|---|---|
 | 1 | gpt-6-astra/high, read-only | 01a11748-43fb-7d42-91e4-7c5864544b74 | Critical review of brief → spec v1 (fertility opt-in v1.1, explicit periods, scope split, one-time supporter) |
+| 2 | gpt-6-astra/high, read-only | 01a1175b-18da-7b31-ab82-83a714771403 | Plan review: 10 must-fix (CycleUse, addPeriod, reminder keyed by period, restore atomic incl. domain settings in Room, crypto bounds, coverage, rounding, DB FKs/mutex, backup rules, offline readiness) → plan amended |
+| 3 | gpt-6.1-sol/high | (running) | Engine: Tasks 1–3 |
+
+## Toolchain notes
+- Gradle 8.11.1 at `C:\Users\kempe\dev-tools\gradle-8.11.1` (copied from JaySay), JDK 17, SDK 36, shared
+  `dev-tools\gradle-home` cache (filled online by Claude via `tools\check.ps1 -Voll -Online`).
+- WorkManager's ACCESS_NETWORK_STATE/FOREGROUND_SERVICE + SystemForegroundService removed in manifest.
