@@ -29,7 +29,8 @@ Fixed rules for Codex live in `AGENTS.md` (created in M0; do not repeat them in 
 | 2 | gpt-6-astra/high, read-only | 01a1175b-18da-7b31-ab82-83a714771403 | Plan review: 10 must-fix (CycleUse, addPeriod, reminder keyed by period, restore atomic incl. domain settings in Room, crypto bounds, coverage, rounding, DB FKs/mutex, backup rules, offline readiness) → plan amended |
 | 3 | gpt-6.1-sol/high | 01a1176e-8211-79a2-b7f9-496cc769cad6 | Engine Tasks 1–3: 69 tests green, +1041 lines; reviewed Prediction + BackupCodec OK; commit 552d287 |
 | 4 | gpt-6.1-sol/high | 01a11785-e4e0-7950-bcac-280ebc04dac8 | Core Tasks 4–6: 103 tests, 12 Today screenshots OK; full gate green; commit 8e58f58 |
-| 5 | resume of 4 | 01a11785-… | History + Day entry (Tasks 7–8) + compact date range + calendar screenshot |
+| 5 | resume of 4 | 01a11785-… | History + Day entry (Tasks 7–8): 136 tests, screenshots OK; resume lost gradle-home write access (Codex used local cache); commit 95d3c17 |
+| 6 | gpt-6.1-sol/high fresh | (running) | Recovery: Task 9 + history bar + mood icon tint |
 
 ## Toolchain notes
 - Gradle 8.11.1 at `C:\Users\kempe\dev-tools\gradle-8.11.1` (copied from JaySay), JDK 17, SDK 36, shared

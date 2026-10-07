@@ -1,0 +1,36 @@
+Round 7 – design direction (read-only concept round, no file changes).
+
+You are the design lead for "FreePeriod." – a free, private, offline Android period tracker
+(Kotlin/Compose, Material 3). Read the spec `docs/superpowers/specs/2026-10-07-freeperiod-design.md`
+and look at the current screenshots in `app/src/test/screenshots/` (today/, history/, day/). They
+are functional but generic Material.
+
+Owner's brief (verbatim): "Please always use the highest design standards, we want a stunning but
+simplistic product that is easy and fun to use! Don't just be like any other app though. We want
+to incorporate our own unique style that sets us apart without being annoying. Don't always take
+the easiest route design wise, add some nice things and some colour, make things lively without
+making them cluttered."
+
+Fixed constraints: name "FreePeriod." (the full stop is part of the name – pun: period = full
+stop); calm, grown-up, trustworthy, not pink-cliché, not esoteric/moon/astrology; neutral in-app
+wording; light + dark; DE + EN; accessibility (contrast AA, never colour alone, large fonts,
+TalkBack); no network (fonts/assets must be bundled, OFL/Apache licensed); performance on cheap
+phones; no fertility/contraception claims.
+
+Deliver 3 clearly distinct design directions, each:
+- Name + one-line idea; the signature motif (what makes it recognisably ours).
+- Palette (hex) light + dark incl. accent, surfaces, period colour, predicted colour, 2–3
+  supporting colours for liveliness; how colour is used without clutter.
+- Typography (specific bundled fonts + where used, e.g. display numerals).
+- Concrete treatment of: Today card (cycle visual instead of/with the cycle-day number), month
+  calendar markers, day entry (chips/icons/mood faces, categories), history (cycle chart),
+  onboarding first screen, empty states, launcher icon idea.
+- Motion & delight: 3–5 micro-interactions/haptics (e.g. on "Period started"), with restraint.
+- Voice: 3 example microcopy lines EN + DE.
+- Risks (what could become annoying/cluttered) and how to keep it simple.
+- Implementation cost in Compose (low/medium/high) and anything that needs new dependencies.
+
+Then recommend one direction (or a blend) with reasons, and list the 5 highest-impact changes to
+make first. Keep it concrete enough that a developer can implement it without guessing.
+
+Answer: English Markdown, max ~1800 words. No code, no file changes.

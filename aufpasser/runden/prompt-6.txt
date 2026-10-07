@@ -1,0 +1,48 @@
+Round 6 – "recovery": plan Task 9 (Settings, backup/restore, CSV export, privacy/about) plus two
+small visual fixes. Rules `AGENTS.md`; scope `app/` only (engine only if strictly needed, with a
+test).
+
+Context: Engine (backup codec, CSV export) and app core, Today, History, Day entry are done and
+committed (95d3c17, 136 tests green incl. Robolectric). Read the plan
+`docs/superpowers/plans/2026-10-07-freeperiod-v1.md`: "Decisions from plan review (round 2)"
+(binding; esp. Backup crypto bounds, Restore, Language), Task 9, spec §6 (Settings) and §7.
+Leave the reminder and app-lock settings out entirely; the next round (Tasks 10–11) adds them.
+
+Requirements:
+1. Settings screen (replaces placeholder): typical cycle length (15–90 or "I don't know"),
+   pause predictions, dynamic colour (only API 31+), language row (API 33+ only, opens system
+   per-app language screen; add `android:localeConfig` + `res/xml/locales_config.xml` en/de),
+   Backup & restore, Export as CSV, Privacy policy, About.
+2. Backup: password + confirm (min 8 chars), forgotten-password warning, create document
+   `freeperiod-YYYY-MM-DD.fpbackup` (`application/octet-stream`), `BackupCodec.encode` on
+   `Dispatchers.Default`, snapshot from repository; cancelled/failed write → error text.
+3. Restore: open document, password, decode with clock overload on `Dispatchers.Default`,
+   summary ("N periods, M days logged"), confirm dialog (replaces all data), `replaceAll`.
+   Map every `DecodeResult` to a clear EN/DE message. Read at most 20 MB from the stream.
+4. CSV export: warning dialog (not encrypted), then two create-document calls
+   (`freeperiod-YYYY-MM-DD-days.csv`, `…-periods.csv`, `text/csv`).
+5. Privacy policy screen: in-app text (EN/DE string resources): what is stored (on this phone
+   only), no internet permission, no analytics/ads, backups/exports are files the user controls
+   (a cloud folder chosen in the picker uploads via that app), how to delete everything
+   (uninstall or "Delete all data" – add that action in Settings with a confirm dialog →
+   `replaceAll(empty)`), contact placeholder string `privacy_contact` = "Contact: see the store
+   listing" (owner provides e-mail later). Link constant `PRIVACY_URL` in one place
+   (placeholder `https://freeperiod.org/privacy`, not fetched by the app – open via ACTION_VIEW
+   only when tapped; no INTERNET needed).
+6. About: version, "GPL-3.0" licence, source code link constant (`SOURCE_URL` placeholder),
+   open-source licences list (static text for the libraries in `libs.versions.toml`).
+7. Visual fixes: (a) History cycle length bar: replace the Material progress indicator (gap +
+   stop dot looks wrong) with a plain rounded bar (Box with fraction, primary on
+   surfaceVariant); (b) Day entry: the selected mood chip's icon must keep the accent tint like
+   unselected ones (currently turns black).
+8. Tests from Task 9 (`failedRestoreKeepsExistingData`, `restoreReplacesDataAndSettings`,
+   `passwordMismatchBlocksBackup`) + `deleteAllDataClearsEverything`, `decodeErrorsMapToMessages`.
+   Screenshot tests (w360dp-h800dp-xxhdpi, fixed clock 2026-04-12): `SettingsScreenshotTest`
+   `main_enLight`, `main_deDark`; `BackupScreenshotTest` `backupForm_enLight`,
+   `restoreSummary_deLight`; `PrivacyScreenshotTest` `privacy_enLight`. Update
+   `HistoryScreenshotTest`/`DayEntryScreenshotTest` names are unchanged (Claude re-records).
+
+Non-goals: reminders, lock, onboarding (next round); no new dependencies.
+
+Verify: `tools\check.ps1 -Schnell` GREEN. Answer per AGENTS.md incl. screenshot tests to record and
+net lines.
