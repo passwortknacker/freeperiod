@@ -1,0 +1,51 @@
+Round 9 – three design drafts as HTML mockups. Scope fence: write ONLY inside `docs/design/drafts/`.
+Do not touch any other file. Rules `AGENTS.md` otherwise apply.
+
+You are the design lead for "FreePeriod." (free, private, offline Android period tracker). Context:
+your round-7 concepts (`aufpasser/runden/runde-7.md`), the spec
+`docs/superpowers/specs/2026-10-07-freeperiod-design.md` (§6 screens, wording rules) and the
+current app screenshots in `app/src/test/screenshots/` (functional but generic). Claude's rough
+sketches: `docs/design/directions.png`, `docs/design/dayline-soft.png`.
+
+Owner wants: "highest design standards, stunning but simplistic, easy and fun to use, own unique
+style that sets us apart without being annoying, some nice things and some colour, lively without
+clutter." Now: "present me 3 distinct and very different but excellent design drafts to choose a
+direction from."
+
+Draft 1 MUST follow the owner's answers:
+1. Colours soft (pastel coral family on warm light background, not deep brick red).
+2. Typography: "the technical one (IBM Plex Mono) is too boring and the serif (Fraunces) is too
+   fancy schmancy. We need something that's grounded but also pleasing to the eye" → choose a
+   warm, well-drawn sans (e.g. a humanist/geometric grotesque from Google Fonts, OFL) for
+   numerals and text.
+3. Today visual: timeline strip or 7-day ruler (pick the better one or combine elegantly).
+4. Day entry calmer: not a rainbow; restrained use of colour.
+5. Motion/voice subtle.
+Drafts 2 and 3: two clearly different, equally excellent directions (different layout ideas,
+colour worlds, typography and signature element), still within the constraints: not pink
+cliché, not esoteric/moon/astrology, neutral grown-up tone, trustworthy, the name keeps its full
+stop, accessibility (AA contrast, never colour alone), works in light + dark. Make them bold
+enough that the choice is meaningful.
+
+Deliverables:
+- `docs/design/drafts/draft-1.html`, `draft-2.html`, `draft-3.html`: each one self-contained page
+  (inline CSS; fonts only via Google Fonts `<link>`; inline SVG; no JS needed, no images) showing
+  a board of 4 phone screens side by side at exactly 360×780 px each with 24 px gaps on a neutral
+  board background: (1) Today in light mode (cycle-day, the cycle visual, prediction "Next period
+  likely Apr 28–30" + "based on your last 3 cycles", primary action, month calendar with period
+  days Apr 1–5, today Apr 12 with a log dot, predicted Apr 28–30, bottom navigation Today ·
+  History · Settings), (2) Day entry (date Sun, Apr 12; flow, mood with 5 faces, pain, symptoms
+  with icons, collapsed rows for sex/discharge/tags/note; some values selected), (3) History
+  (averages + cycle list/chart: Mar 15 28 days, Feb 15 30, Jan 16 27, Dec 18 29 and one excluded
+  14-day cycle with reason), (4) Today in dark mode. Board title = draft name only (small).
+  Realistic content in English, real UI density, nothing lorem ipsum. Mind Android conventions
+  (status bar area, 48 dp targets).
+- `docs/design/drafts/README.md`: per draft: name, idea (2 sentences), palette hex (light/dark),
+  fonts, signature element, motion ideas (subtle), voice examples EN/DE (2 each), why it is
+  distinctive; plus your recommendation in 3 lines.
+
+Quality bar: this is what the owner chooses from – make each draft look like a polished Dribbble-
+level shot of a real, shippable Android app, not a wireframe. Check alignment, spacing rhythm,
+contrast and text overflow yourself.
+
+Answer: short list of files + one line per draft.

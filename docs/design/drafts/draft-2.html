@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Fieldnote · FreePeriod.</title>
+<!-- Static design board. The only external resource is the requested Google Fonts stylesheet.
+     Offline viewing uses the declared system fallbacks. All UI artwork is inline SVG/CSS. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+
+*{box-sizing:border-box}
+html{background:#e7e7e4}
+body{margin:0;padding:28px 32px 36px;width:max-content;min-width:100%;color:#292b2b;font-family:Arial,sans-serif}
+.board-title{font:500 14px/20px Arial,sans-serif;letter-spacing:.04em;margin:0 0 18px}
+.board{display:grid;grid-template-columns:repeat(4,360px);gap:24px;align-items:start}
+.phone{width:360px;height:780px;position:relative;display:flex;flex-direction:column;overflow:hidden;border-radius:28px;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.35;box-shadow:0 10px 30px #18202012,0 0 0 1px #18202010;font-synthesis:none}
+.phone *{flex-shrink:0}
+h2,h3,p{margin:0}
+button,summary{font:inherit;color:inherit}
+button{cursor:default;border:0;background:none;padding:0;min-height:48px}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+svg{display:block}
+.icon{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.icon-button{width:48px;height:48px;display:grid;place-items:center}
+.status{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font:600 11px/1 Arial,sans-serif}
+.status-icons{display:flex;align-items:center;gap:6px}
+.status-icons .icon{width:14px;height:14px;stroke-width:1.8}
+.battery{width:18px;height:9px;border:1.3px solid currentColor;border-radius:2px;position:relative}
+.battery:before{content:"";position:absolute;inset:1px 3px 1px 1px;background:currentColor;border-radius:1px}
+.battery:after{content:"";position:absolute;right:-3px;top:2px;width:2px;height:3px;background:currentColor}
+.gesture{height:20px;display:grid;place-items:center;background:var(--bg)}
+.gesture:after{content:"";height:4px;width:100px;background:var(--ink);border-radius:3px}
+.today-body{height:666px}
+.app-header{height:52px;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.wordmark{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:-1px}
+.wordmark span{color:var(--accent-ink)}
+.header-date{font-size:12px;color:var(--muted)}
+.hero{height:270px;margin:0 12px;padding:14px 16px;border-radius:22px;background:var(--surface)}
+.hero-top{height:66px;display:flex;align-items:center;gap:14px}
+.day-number{font-family:var(--display);font-size:72px;font-weight:600;letter-spacing:-4px;line-height:1}
+.cycle-label{font-size:14px;font-weight:500}
+.small{font-size:12px;color:var(--muted)}
+.ruler{height:56px;display:grid;grid-template-columns:repeat(7,1fr);position:relative;padding-top:2px}
+.ruler-day{display:flex;align-items:center;flex-direction:column;gap:2px;font-size:12px;color:var(--muted);position:relative}
+.ruler-day b{font-size:14px;color:var(--ink);font-weight:500}
+.ruler-day:after{content:"";height:5px;width:1px;background:var(--muted);margin-top:2px}
+.ruler-day.current{color:var(--ink);background:var(--soft);border:1px solid var(--accent-ink);border-radius:10px}
+.ruler-day.current b{font-weight:700}
+.ruler-day.current:after{width:4px;height:4px;border-radius:50%;background:var(--ink)}
+.prediction{margin-top:8px}
+.prediction p{font-size:15px;line-height:21px;white-space:nowrap}
+.prediction strong{font-weight:700}
+.prediction .basis{font-size:12px;line-height:18px;color:var(--muted)}
+.actions{display:grid;grid-template-columns:1fr 100px;gap:8px;margin-top:10px}
+.primary{background:var(--accent);color:var(--on-accent);border:1px solid var(--accent-ink);border-radius:14px;min-height:48px;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.secondary{font-size:13px;font-weight:600;border-radius:14px}
+.calendar{height:344px;padding:0 12px}
+.month-header{height:48px;display:flex;align-items:center;justify-content:space-between;padding-left:8px}
+.month-header h3{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.4px}
+.month-arrows{display:flex}
+.weekdays{height:24px;display:grid;grid-template-columns:repeat(7,48px);align-items:center;text-align:center;color:var(--muted);font-size:11px}
+.days{display:grid;grid-template-columns:repeat(7,48px);grid-template-rows:repeat(5,48px)}
+.date{width:48px;height:48px;position:relative;display:grid;place-items:center;font-size:14px}
+.date .mark{width:32px;height:32px;display:grid;place-items:center;border-radius:50%}
+.date.period .mark{background:var(--period);color:var(--period-text);border:1px solid var(--period-edge)}
+.date.predicted .mark{border:1.5px dashed var(--prediction)}
+.date.today .mark{border:2px solid var(--ink);font-weight:700}
+.date.logged:after{content:"";position:absolute;bottom:2px;left:22px;width:4px;height:4px;background:var(--ink);border-radius:50%}
+.legend{height:32px;display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding:0 4px}
+.legend span{display:flex;align-items:center;gap:4px}
+.key{width:11px;height:11px;border-radius:50%;display:inline-block}
+.key.recorded{background:var(--period);border:1px solid var(--period-edge)}
+.key.predicted{border:1.5px dashed var(--prediction)}
+.key.today{border:1.5px solid var(--ink)}
+.key.logged{width:4px;height:4px;background:var(--ink);margin:0 3px}
+.nav{height:66px;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);background:var(--bg)}
+.nav button{height:66px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:var(--muted);position:relative}
+.nav .nav-icon{display:grid;place-items:center;width:56px;height:28px;border-radius:16px}
+.nav .active{color:var(--ink);font-weight:700}
+.nav .active .nav-icon{background:var(--soft)}
+.entry-body{height:732px;overflow:auto;scrollbar-width:none;padding:0 16px}
+.entry-body::-webkit-scrollbar{display:none}
+.sheet-handle{height:12px;display:grid;place-items:center}
+.sheet-handle:after{content:"";height:3px;width:30px;border-radius:2px;background:var(--muted)}
+.entry-header{height:60px;display:flex;align-items:center;justify-content:space-between}
+.eyebrow{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.entry-header h2{font-family:var(--display);font-size:25px;letter-spacing:-.8px;line-height:32px}
+.entry-date-actions{display:flex;margin-right:-10px}
+.period-row{height:48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font-size:13px}
+.switch-button{width:48px;height:48px;display:grid;place-items:center}
+.switch-track{width:34px;height:20px;border:1.5px solid var(--muted);border-radius:20px;padding:3px}
+.switch-track:after{content:"";display:block;width:11px;height:11px;background:var(--muted);border-radius:50%}
+.field{border:0;padding:0;margin:6px 0 0;min-width:0}
+.field legend{font-weight:600;font-size:14px;padding:0 0 6px;display:flex;align-items:center;gap:6px}
+.field legend .small{font-weight:400;margin-left:8px}
+.choices{display:flex;gap:4px;width:100%}
+.choice{flex:1;min-width:48px;height:48px;border-radius:11px;background:var(--surface);border:1px solid var(--control);display:flex;align-items:center;justify-content:center;position:relative;font-size:11px;font-weight:500;gap:3px}
+.choice.selected{background:var(--soft);border:1.5px solid var(--accent-ink);font-weight:700}
+.choice .tick{position:absolute;right:3px;top:2px;font-size:10px;line-height:10px;color:var(--ink)}
+.moods .choice{height:64px;flex-direction:column;gap:4px}
+.face{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.symptoms .choice{height:58px;flex-direction:column;gap:4px}
+.symptoms .icon{width:20px;height:20px}
+.optional{margin-top:12px;border-top:1px solid var(--line)}
+.optional details{border-bottom:1px solid var(--line)}
+.optional summary{height:48px;list-style:none;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px}
+.optional summary::-webkit-details-marker{display:none}
+.optional summary>.icon{width:19px;height:19px;color:var(--muted)}
+.optional .value{margin-left:auto;font-size:12px;color:var(--muted)}
+.optional summary .chevron{width:17px;height:17px;margin-left:2px;color:var(--muted)}
+.optional details[open] .chevron{transform:rotate(90deg)}
+.optional details p{padding:0 0 12px 29px;color:var(--muted);font-size:12px}
+.entry-footer{height:54px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--muted)}
+.entry-footer .saved{display:flex;align-items:center;gap:5px}
+.entry-footer .saved .icon{width:15px;height:15px}
+.entry-footer button{font-size:12px;font-weight:600;color:var(--ink);padding:0 8px}
+.history-body{height:666px;padding:0 20px;overflow:auto;scrollbar-width:none}
+.history-body::-webkit-scrollbar{display:none}
+.history-header{height:68px;display:flex;align-items:center;justify-content:space-between}
+.history-header h2{font-family:var(--display);font-size:30px;letter-spacing:-1px;font-weight:600}
+.history-header .icon{color:var(--muted)}
+.stats-label{font-size:13px;font-weight:600;margin-bottom:8px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{padding:14px 14px 12px;border-radius:18px;background:var(--surface)}
+.stat:first-child{background:var(--soft)}
+.stat .number{font-family:var(--display);font-size:38px;line-height:44px;font-weight:600;letter-spacing:-1.5px}
+.stat .unit{font-size:12px;letter-spacing:0;font-family:var(--font);font-weight:400;margin-left:3px}
+.stat .stat-name{font-size:12px;color:var(--muted);margin-top:3px}
+.stats-basis{font-size:11px;line-height:17px;color:var(--muted);margin:9px 0 14px}
+.list-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.list-title h3{font-size:16px;font-weight:600}
+.list-title span{font-size:11px;color:var(--muted)}
+.cycle-row{height:56px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:56px 1fr 58px;gap:10px;align-items:center}
+.cycle-date{font-size:13px;font-weight:600}
+.cycle-date small{display:block;font-size:10px;color:var(--muted);font-weight:400;margin-top:3px}
+.bar-track{height:8px;background:var(--track);border-radius:6px;position:relative}
+.bar-fill{height:8px;width:var(--width);background:var(--bar);border-radius:6px;position:relative}
+.bar-fill:after{content:"";position:absolute;right:0;top:-2px;width:12px;height:12px;border-radius:50%;background:var(--bar)}
+.cycle-length{text-align:right;font-size:12px}
+.cycle-length b{font-family:var(--display);font-size:19px;font-weight:600}
+.excluded{margin-top:12px;padding:12px;border:1px dashed var(--muted);border-radius:14px}
+.excluded-head{display:flex;align-items:center;justify-content:space-between;font-size:13px}
+.excluded-head b{font-size:16px}
+.excluded .reason{font-size:11px;line-height:16px;color:var(--muted);margin-top:6px}
+.excluded-control{display:flex;align-items:center;justify-content:space-between;height:48px;font-size:12px}
+.excluded-control .switch-button{margin-right:-8px}
+@media print{body{padding:16px}.phone{box-shadow:none;break-inside:avoid}.board{gap:24px}}
+
+
+.phone{--font:'DM Sans','Segoe UI',sans-serif;--display:'Bricolage Grotesque','Trebuchet MS',sans-serif;--bg:#f4f3e9;--surface:#fffef5;--ink:#213f33;--muted:#5e6b5f;--accent:#244e3d;--on-accent:#fffef5;--accent-ink:#244e3d;--soft:#e6edbc;--line:#d8ddcb;--control:#84917a;--period:#dfe9aa;--period-text:#213f33;--period-edge:#627047;--prediction:#5c6d56;--track:#dce1d0;--bar:#47694c}
+.dark{--bg:#17271f;--surface:#21362b;--ink:#f0f4df;--muted:#b7c5af;--accent:#dce9a8;--on-accent:#213f33;--accent-ink:#dce9a8;--soft:#3c502e;--line:#41533e;--control:#96aa85;--period:#dce9a8;--period-text:#213f33;--period-edge:#dce9a8;--prediction:#c5d2ac;--track:#41533e;--bar:#dce9a8}
+.wordmark{letter-spacing:-1.1px}
+.hero{border-radius:4px 24px 4px 24px;background:var(--surface);border:1px solid var(--line);padding:12px 16px}
+.field-top{height:130px;display:grid;grid-template-columns:116px 1fr;gap:12px;align-items:center}
+.field-day .day-number{font-size:86px;font-weight:600;letter-spacing:-5px;margin:5px 0 0}
+.field-day .cycle-label{font-size:13px}
+.journal-trail{width:156px;height:128px;overflow:visible}
+.journal-trail text{font-family:var(--font);font-size:11px;fill:var(--muted)}
+.journal-trail .trail-today{fill:var(--ink);font-weight:700}
+.hero .prediction{margin-top:5px}
+.hero .actions{margin-top:10px}
+.primary{border-radius:4px 14px 4px 14px}
+.nav .nav-icon{border-radius:4px 12px 4px 12px}
+.calendar .month-header{border-bottom:1px solid var(--line)}
+.calendar .month-header h3{font-size:20px}
+.entry-body{background:var(--surface)}
+.entry-body .sheet-handle:after{width:24px}
+.field legend{font-family:var(--display);font-size:15px}
+.choice{background:var(--surface);border-radius:5px}
+.choice.selected{border-radius:5px 12px 5px 12px}
+.optional summary{font-weight:500}
+.entry-footer{font-size:11px}
+.history-header h2{font-size:34px}
+.stats{gap:0;background:var(--accent);color:var(--on-accent);border-radius:4px 24px 4px 24px;padding:12px 0}
+.stat,.stat:first-child{background:transparent;border-radius:0;padding:2px 16px}
+.stat+.stat{border-left:1px solid #9cac92}
+.stat .number{font-size:40px}
+.stat .stat-name{color:#e3ebd5}
+.cycle-row{height:56px;grid-template-columns:60px 1fr 60px}
+.cycle-date{border-left:2px solid var(--control);padding-left:10px}
+.bar-track,.bar-fill{height:6px;border-radius:0}
+.bar-fill:after{width:8px;height:12px;border-radius:2px;top:-3px}
+.excluded{border-radius:3px 15px 3px 15px;background:var(--surface)}
+
+</style>
+</head>
+<body>
+<h1 class="board-title">Fieldnote</h1>
+<main class="board" aria-label="Fieldnote, four FreePeriod. screen mockups">
+<article class="phone " aria-label="Today, light mode">
+ <div class="status" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20v-4m5 4v-8m5 8V8m5 12V4"/></svg><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a15 15 0 0 1 18 0M6 12a10 10 0 0 1 12 0m-9 4a5 5 0 0 1 6 0"/><circle cx="12" cy="20" r=".6" fill="currentColor"/></svg><span class="battery"></span></span></div>
+ <div class="today-body">
+  <header class="app-header"><div class="wordmark">FreePeriod<span>.</span></div><span class="header-date">Your daily space</span></header>
+  <section class="hero" aria-label="Cycle day 12">
+   <div class="field-top">
+  <div class="field-day"><div class="cycle-label">Cycle day</div><div class="day-number">12</div></div>
+  <svg class="journal-trail" viewBox="0 0 156 128" role="img" aria-label="Open timeline: period began April 1, today April 12, predicted next start April 28 to 30.">
+   <path d="M15 17v17" stroke="var(--period)" stroke-width="8" stroke-linecap="round"/>
+   <path d="M15 17v17" stroke="var(--period-edge)" stroke-width="1.5"/>
+   <path d="M15 34v28" stroke="var(--muted)" stroke-width="1.5"/>
+   <path d="M15 62v50" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="3 4"/>
+   <circle cx="15" cy="17" r="5" fill="var(--period)" stroke="var(--period-edge)"/>
+   <circle cx="15" cy="62" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
+   <circle cx="15" cy="62" r="2" fill="var(--ink)"/>
+   <rect x="9" y="109" width="12" height="8" rx="4" fill="var(--surface)" stroke="var(--prediction)" stroke-width="1.5" stroke-dasharray="2 2"/>
+   <text x="34" y="20">Apr 1 · period start</text>
+   <text x="34" y="66" class="trail-today">Apr 12 · today</text>
+   <text x="34" y="117">Apr 28–30 · likely</text>
+  </svg>
+ </div>
+   <div class="prediction"><p>Next period likely <strong>Apr 28–30</strong></p><div class="basis">based on your last 3 cycles</div></div>
+   <div class="actions"><button class="primary" type="button">Period started</button><button class="secondary" type="button">Log today</button></div>
+  </section>
+  <section class="calendar" aria-label="April 2026 calendar">
+  <header class="month-header"><h3>April <span style="font-weight:400">2026</span></h3><div class="month-arrows"><button class="icon-button" aria-label="Previous month"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><button class="icon-button" aria-label="Next month"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></div></header>
+  <div class="weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+  <div class="days"><span class="date" aria-hidden="true"></span>
+   <span class="date" aria-hidden="true"></span>
+   <span class="date" aria-hidden="true"></span>
+   <button type="button" class="date period" aria-label="April 1, 2026, recorded period"><span class="mark">1</span></button>
+   <button type="button" class="date period" aria-label="April 2, 2026, recorded period"><span class="mark">2</span></button>
+   <button type="button" class="date period" aria-label="April 3, 2026, recorded period"><span class="mark">3</span></button>
+   <button type="button" class="date period" aria-label="April 4, 2026, recorded period"><span class="mark">4</span></button>
+   <button type="button" class="date period" aria-label="April 5, 2026, recorded period"><span class="mark">5</span></button>
+   <button type="button" class="date " aria-label="April 6, 2026"><span class="mark">6</span></button>
+   <button type="button" class="date " aria-label="April 7, 2026"><span class="mark">7</span></button>
+   <button type="button" class="date " aria-label="April 8, 2026"><span class="mark">8</span></button>
+   <button type="button" class="date " aria-label="April 9, 2026"><span class="mark">9</span></button>
+   <button type="button" class="date " aria-label="April 10, 2026"><span class="mark">10</span></button>
+   <button type="button" class="date " aria-label="April 11, 2026"><span class="mark">11</span></button>
+   <button type="button" class="date today logged" aria-label="April 12, 2026, today, entry saved" aria-current="date"><span class="mark">12</span></button>
+   <button type="button" class="date " aria-label="April 13, 2026"><span class="mark">13</span></button>
+   <button type="button" class="date " aria-label="April 14, 2026"><span class="mark">14</span></button>
+   <button type="button" class="date " aria-label="April 15, 2026"><span class="mark">15</span></button>
+   <button type="button" class="date " aria-label="April 16, 2026"><span class="mark">16</span></button>
+   <button type="button" class="date " aria-label="April 17, 2026"><span class="mark">17</span></button>
+   <button type="button" class="date " aria-label="April 18, 2026"><span class="mark">18</span></button>
+   <button type="button" class="date " aria-label="April 19, 2026"><span class="mark">19</span></button>
+   <button type="button" class="date " aria-label="April 20, 2026"><span class="mark">20</span></button>
+   <button type="button" class="date " aria-label="April 21, 2026"><span class="mark">21</span></button>
+   <button type="button" class="date " aria-label="April 22, 2026"><span class="mark">22</span></button>
+   <button type="button" class="date " aria-label="April 23, 2026"><span class="mark">23</span></button>
+   <button type="button" class="date " aria-label="April 24, 2026"><span class="mark">24</span></button>
+   <button type="button" class="date " aria-label="April 25, 2026"><span class="mark">25</span></button>
+   <button type="button" class="date " aria-label="April 26, 2026"><span class="mark">26</span></button>
+   <button type="button" class="date " aria-label="April 27, 2026"><span class="mark">27</span></button>
+   <button type="button" class="date predicted" aria-label="April 28, 2026, predicted period"><span class="mark">28</span></button>
+   <button type="button" class="date predicted" aria-label="April 29, 2026, predicted period"><span class="mark">29</span></button>
+   <button type="button" class="date predicted" aria-label="April 30, 2026, predicted period"><span class="mark">30</span></button>
+   <span class="date" aria-hidden="true"></span>
+   <span class="date" aria-hidden="true"></span></div>
+  <div class="legend"><span><i class="key recorded"></i>Period</span><span><i class="key predicted"></i>Predicted</span><span><i class="key today"></i>Today</span><span><i class="key logged"></i>Entry</span></div>
+ </section>
+ </div>
+ <nav class="nav" aria-label="Main navigation"><button type="button" class="active" aria-current="page"><span class="nav-icon"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4m8-4v4M4 10h16M8 14h3m-3 3h6"/></svg></span>Today</button><button type="button" ><span class="nav-icon"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h10M5 18h6"/></svg></span>History</button><button type="button" ><span class="nav-icon"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 18h16M8 3v6m8 6v6"/><circle cx="8" cy="6" r="2" fill="var(--bg)"/><circle cx="16" cy="18" r="2" fill="var(--bg)"/></svg></span>Settings</button></nav>
+ <div class="gesture" aria-hidden="true"></div>
+ </article>
+<article class="phone" aria-label="Day entry, light mode">
+ <div class="status" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20v-4m5 4v-8m5 8V8m5 12V4"/></svg><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a15 15 0 0 1 18 0M6 12a10 10 0 0 1 12 0m-9 4a5 5 0 0 1 6 0"/><circle cx="12" cy="20" r=".6" fill="currentColor"/></svg><span class="battery"></span></span></div>
+ <div class="entry-body">
+ <div class="sheet-handle" aria-hidden="true"></div>
+ <header class="entry-header"><div><div class="eyebrow">Day entry</div><h2>Sun, Apr 12</h2></div><div class="entry-date-actions"><button class="icon-button" aria-label="Previous day"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><button class="icon-button" aria-label="Next day, read only"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button><button class="icon-button" aria-label="Close day entry"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div></header>
+ <div class="period-row"><span>Period started on this day</span><button class="switch-button" role="switch" aria-checked="false" aria-label="Period started on this day"><span class="switch-track"></span></button></div>
+ <fieldset class="field"><legend>Flow</legend><div class="choices"><button type="button" class="choice selected" aria-pressed="true" aria-label="None">None<span class="tick" aria-hidden="true">✓</span></button><button type="button" class="choice " aria-pressed="false" aria-label="Spotting">Spotting</button><button type="button" class="choice " aria-pressed="false" aria-label="Light">Light</button><button type="button" class="choice " aria-pressed="false" aria-label="Medium">Medium</button><button type="button" class="choice " aria-pressed="false" aria-label="Heavy">Heavy</button></div></fieldset>
+ <fieldset class="field"><legend>Mood</legend><div class="choices moods"><button type="button" class="choice " aria-pressed="false" aria-label="Bad"><svg class="face" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 9h.5m7 0h.5"/><path d="M8 17q4-5 8 0"/></svg><span>Bad</span></button><button type="button" class="choice " aria-pressed="false" aria-label="Low"><svg class="face" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 9h.5m7 0h.5"/><path d="M8 16q4-3 8 0"/></svg><span>Low</span></button><button type="button" class="choice " aria-pressed="false" aria-label="Okay"><svg class="face" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 9h.5m7 0h.5"/><path d="M8 15h8"/></svg><span>Okay</span></button><button type="button" class="choice selected" aria-pressed="true" aria-label="Good"><svg class="face" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 9h.5m7 0h.5"/><path d="M8 14q4 5 8 0"/></svg><span>Good</span><span class="tick" aria-hidden="true">✓</span></button><button type="button" class="choice " aria-pressed="false" aria-label="Great"><svg class="face" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 9h.5m7 0h.5"/><path d="M7 13h10q-1 6-5 6t-5-6Z"/></svg><span>Great</span></button></div></fieldset>
+ <fieldset class="field"><legend>Pain</legend><div class="choices"><button type="button" class="choice " aria-pressed="false" aria-label="None">None</button><button type="button" class="choice selected" aria-pressed="true" aria-label="Mild">Mild<span class="tick" aria-hidden="true">✓</span></button><button type="button" class="choice " aria-pressed="false" aria-label="Moderate">Moderate</button><button type="button" class="choice " aria-pressed="false" aria-label="Severe">Severe</button></div></fieldset>
+ <fieldset class="field"><legend>Symptoms <span class="small">2 selected</span></legend><div class="choices symptoms"><button type="button" class="choice selected" aria-pressed="true" aria-label="Cramps"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3-3 7 5 2-4 9m10-18 3 7-5 2 4 9"/></svg><span>Cramps</span><span class="tick" aria-hidden="true">✓</span></button><button type="button" class="choice selected" aria-pressed="true" aria-label="Bloating"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3c0 4-4 5-4 10a8 8 0 0 0 16 0c0-5-4-6-4-10M7 13h10m-10 0 2-2m-2 2 2 2m8-2-2-2m2 2-2 2"/></svg><span>Bloating</span><span class="tick" aria-hidden="true">✓</span></button><button type="button" class="choice " aria-pressed="false" aria-label="Headache"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21v-4l-3-2 1-4a7 7 0 1 1 13 4v6M13 4l-2 5h4l-2 5"/></svg><span>Headache</span></button><button type="button" class="choice" aria-label="Show all symptoms"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>More</span></button></div></fieldset>
+ <div class="optional">
+  <details><summary><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20 4 12C-2 5 8 0 12 7c4-7 14-2 8 5Z"/></svg><span>Sex</span><span class="value">None</span><svg class="icon chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary><p>No sex recorded.</p></details>
+  <details><summary><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C10 7 5 11 5 15a7 7 0 0 0 14 0c0-4-5-8-7-12Z"/></svg><span>Discharge</span><span class="value">Creamy</span><svg class="icon chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary><p>Creamy discharge recorded.</p></details>
+  <details><summary><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h8l10 10-7 7L3 10Z"/><circle cx="7" cy="8" r="1"/></svg><span>Tags</span><span class="value">Walk</span><svg class="icon chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary><p>Walk</p></details>
+  <details><summary><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v14l-4 4H5Z M9 8h6M9 12h6m0 9v-4h4"/></svg><span>Note</span><span class="value">1 note</span><svg class="icon chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary><p>A slow morning. Felt better after a walk.</p></details>
+ </div>
+ <footer class="entry-footer"><span class="saved"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>All changes saved</span><button type="button">Clear day</button></footer>
+ </div>
+ <div class="gesture" aria-hidden="true"></div>
+ </article>
+<article class="phone" aria-label="History, light mode">
+ <div class="status" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20v-4m5 4v-8m5 8V8m5 12V4"/></svg><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a15 15 0 0 1 18 0M6 12a10 10 0 0 1 12 0m-9 4a5 5 0 0 1 6 0"/><circle cx="12" cy="20" r=".6" fill="currentColor"/></svg><span class="battery"></span></span></div>
+ <div class="history-body">
+ <header class="history-header"><h2>History<span style="color:var(--accent-ink)"></span></h2><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h10M5 18h6"/></svg></header>
+ <div class="stats-label">Your averages</div>
+ <section class="stats" aria-label="Median cycle and period lengths">
+ <div class="stat"><div class="number">28.5<span class="unit">days</span></div><div class="stat-name">Cycle length</div></div>
+ <div class="stat"><div class="number">5<span class="unit">days</span></div><div class="stat-name">Period length</div></div>
+ </section>
+ <p class="stats-basis">Based on 4 eligible cycles<br>and 5 completed periods</p>
+ <div class="list-title"><h3>Your cycles</h3><span>0–30 days</span></div>
+ <div class="cycle-row"><div class="cycle-date">Mar 15<small>Period 5d</small></div><div class="bar-track" role="img" aria-label="28 days, scale 0 to 30"><div class="bar-fill" style="--width:93.33333333333333%"></div></div><div class="cycle-length"><b>28</b> days</div></div>
+ <div class="cycle-row"><div class="cycle-date">Feb 15<small>Period 5d</small></div><div class="bar-track" role="img" aria-label="30 days, scale 0 to 30"><div class="bar-fill" style="--width:100%"></div></div><div class="cycle-length"><b>30</b> days</div></div>
+ <div class="cycle-row"><div class="cycle-date">Jan 16<small>Period 4d</small></div><div class="bar-track" role="img" aria-label="27 days, scale 0 to 30"><div class="bar-fill" style="--width:90%"></div></div><div class="cycle-length"><b>27</b> days</div></div>
+ <div class="cycle-row"><div class="cycle-date">Dec 18<small>Period 6d</small></div><div class="bar-track" role="img" aria-label="29 days, scale 0 to 30"><div class="bar-fill" style="--width:96.66666666666667%"></div></div><div class="cycle-length"><b>29</b> days</div></div>
+ <section class="excluded" aria-label="Excluded 14-day cycle">
+ <div class="excluded-head"><span>Nov 20</span><span><b>14</b> days</span></div>
+ <p class="reason">Excluded · Under 15 days.<br>Not used for predictions.</p>
+ <div class="excluded-control"><span>Use for predictions</span><button class="switch-button" role="switch" aria-checked="false" aria-label="Use November 20 cycle for predictions"><span class="switch-track"></span></button></div>
+ </section>
+ </div>
+ <nav class="nav" aria-label="Main navigation"><button type="button" ><span class="nav-icon"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4m8-4v4M4 10h16M8 14h3m-3 3h6"/></svg></span>Today</button><button type="button" class="active" aria-current="page"><span class="nav-icon"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h10M5 18h6"/></svg></span>History</button><button type="button" ><span class="nav-icon"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 18h16M8 3v6m8 6v6"/><circle cx="8" cy="6" r="2" fill="var(--bg)"/><circle cx="16" cy="18" r="2" fill="var(--bg)"/></svg></span>Settings</button></nav>
+ <div class="gesture" aria-hidden="true"></div>
+ </article>
+<article class="phone dark" aria-label="Today, dark mode">
+ <div class="status" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20v-4m5 4v-8m5 8V8m5 12V4"/></svg><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a15 15 0 0 1 18 0M6 12a10 10 0 0 1 12 0m-9 4a5 5 0 0 1 6 0"/><circle cx="12" cy="20" r=".6" fill="currentColor"/></svg><span class="battery"></span></span></div>
+ <div class="today-body">
+  <header class="app-header"><div class="wordmark">FreePeriod<span>.</span></div><span class="header-date">Your daily space</span></header>
+  <section class="hero" aria-label="Cycle day 12">
+   <div class="field-top">
+  <div class="field-day"><div class="cycle-label">Cycle day</div><div class="day-number">12</div></div>
+  <svg class="journal-trail" viewBox="0 0 156 128" role="img" aria-label="Open timeline: period began April 1, today April 12, predicted next start April 28 to 30.">
+   <path d="M15 17v17" stroke="var(--period)" stroke-width="8" stroke-linecap="round"/>
+   <path d="M15 17v17" stroke="var(--period-edge)" stroke-width="1.5"/>
+   <path d="M15 34v28" stroke="var(--muted)" stroke-width="1.5"/>
+   <path d="M15 62v50" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="3 4"/>
+   <circle cx="15" cy="17" r="5" fill="var(--period)" stroke="var(--period-edge)"/>
+   <circle cx="15" cy="62" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
+   <circle cx="15" cy="62" r="2" fill="var(--ink)"/>
+   <rect x="9" y="109" width="12" height="8" rx="4" fill="var(--surface)" stroke="var(--prediction)" stroke-width="1.5" stroke-dasharray="2 2"/>
+   <text x="34" y="20">Apr 1 · period start</text>
+   <text x="34" y="66" class="trail-today">Apr 12 · today</text>
+   <text x="34" y="117">Apr 28–30 · likely</text>
+  </svg>
+ </div>
+   <div class="prediction"><p>Next period likely <strong>Apr 28–30</strong></p><div class="basis">based on your last 3 cycles</div></div>
+   <div class="actions"><button class="primary" type="button">Period started</button><button class="secondary" type="button">Log today</button></div>
+  </section>
+  <section class="calendar" aria-label="April 2026 calendar">
+  <header class="month-header"><h3>April <span style="font-weight:400">2026</span></h3><div class="month-arrows"><button class="icon-button" aria-label="Previous month"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><button class="icon-button" aria-label="Next month"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></div></header>
+  <div class="weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+  <div class="days"><span class="date" aria-hidden="true"></span>
+   <span class="date" aria-hidden="true"></span>
+   <span class="date" aria-hidden="true"></span>
+   <button type="button" class="date period" aria-label="April 1, 2026, recorded period"><span class="mark">1</span></button>
+   <button type="button" class="date period" aria-label="April 2, 2026, recorded period"><span class="mark">2</span></button>
+   <button type="button" class="date period" aria-label="April 3, 2026, recorded period"><span class="mark">3</span></button>
+   <button type="button" class="date period" aria-label="April 4, 2026, recorded period"><span class="mark">4</span></button>
+   <button type="button" class="date period" aria-label="April 5, 2026, recorded period"><span class="mark">5</span></button>
+   <button type="button" class="date " aria-label="April 6, 2026"><span class="mark">6</span></button>
+   <button type="button" class="date " aria-label="April 7, 2026"><span class="mark">7</span></button>
+   <button type="button" class="date " aria-label="April 8, 2026"><span class="mark">8</span></button>
+   <button type="button" class="date " aria-label="April 9, 2026"><span class="mark">9</span></button>
+   <button type="button" class="date " aria-label="April 10, 2026"><span class="mark">10</span></button>
+   <button type="button" class="date " aria-label="April 11, 2026"><span class="mark">11</span></button>
+   <button type="button" class="date today logged" aria-label="April 12, 2026, today, entry saved" aria-current="date"><span class="mark">12</span></button>
+   <button type="button" class="date " aria-label="April 13, 2026"><span class="mark">13</span></button>
+   <button type="button" class="date " aria-label="April 14, 2026"><span class="mark">14</span></button>
+   <button type="button" class="date " aria-label="April 15, 2026"><span class="mark">15</span></button>
+   <button type="button" class="date " aria-label="April 16, 2026"><span class="mark">16</span></button>
+   <button type="button" class="date " aria-label="April 17, 2026"><span class="mark">17</span></button>
+   <button type="button" class="date " aria-label="April 18, 2026"><span class="mark">18</span></button>
+   <button type="button" class="date " aria-label="April 19, 2026"><span class="mark">19</span></button>
+   <button type="button" class="date " aria-label="April 20, 2026"><span class="mark">20</span></button>
+   <button type="button" class="date " aria-label="April 21, 2026"><span class="mark">21</span></button>
+   <button type="button" class="date " aria-label="April 22, 2026"><span class="mark">22</span></button>
+   <button type="button" class="date " aria-label="April 23, 2026"><span class="mark">23</span></button>
+   <button type="button" class="date " aria-label="April 24, 2026"><span class="mark">24</span></button>
+   <button type="button" class="date " aria-label="April 25, 2026"><span class="mark">25</span></button>
+   <button type="button" class="date " aria-label="April 26, 2026"><span class="mark">26</span></button>
+   <button type="button" class="date " aria-label="April 27, 2026"><span class="mark">27</span></button>
+   <button type="button" class="date predicted" aria-label="April 28, 2026, predicted period"><span class="mark">28</span></button>
+   <button type="button" class="date predicted" aria-label="April 29, 2026, predicted period"><span class="mark">29</span></button>
+   <button type="button" class="date predicted" aria-label="April 30, 2026, predicted period"><span class="mark">30</span></button>
+   <span class="date" aria-hidden="true"></span>
+   <span class="date" aria-hidden="true"></span></div>
+  <div class="legend"><span><i class="key recorded"></i>Period</span><span><i class="key predicted"></i>Predicted</span><span><i class="key today"></i>Today</span><span><i class="key logged"></i>Entry</span></div>
+ </section>
+ </div>
+ <nav class="nav" aria-label="Main navigation"><button type="button" class="active" aria-current="page"><span class="nav-icon"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4m8-4v4M4 10h16M8 14h3m-3 3h6"/></svg></span>Today</button><button type="button" ><span class="nav-icon"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h10M5 18h6"/></svg></span>History</button><button type="button" ><span class="nav-icon"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 18h16M8 3v6m8 6v6"/><circle cx="8" cy="6" r="2" fill="var(--bg)"/><circle cx="16" cy="18" r="2" fill="var(--bg)"/></svg></span>Settings</button></nav>
+ <div class="gesture" aria-hidden="true"></div>
+ </article>
+</main>
+</body>
+</html>

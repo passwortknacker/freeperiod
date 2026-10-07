@@ -30,7 +30,13 @@ Fixed rules for Codex live in `AGENTS.md` (created in M0; do not repeat them in 
 | 3 | gpt-6.1-sol/high | 01a1176e-8211-79a2-b7f9-496cc769cad6 | Engine Tasks 1–3: 69 tests green, +1041 lines; reviewed Prediction + BackupCodec OK; commit 552d287 |
 | 4 | gpt-6.1-sol/high | 01a11785-e4e0-7950-bcac-280ebc04dac8 | Core Tasks 4–6: 103 tests, 12 Today screenshots OK; full gate green; commit 8e58f58 |
 | 5 | resume of 4 | 01a11785-… | History + Day entry (Tasks 7–8): 136 tests, screenshots OK; resume lost gradle-home write access (Codex used local cache); commit 95d3c17 |
-| 6 | gpt-6.1-sol/high fresh | (running) | Recovery: Task 9 + history bar + mood icon tint |
+| 6 | gpt-6.1-sol/high fresh | 01a117c2-4b22-7b11-85e1-a26f717328bf | Recovery Task 9: 162 tests; MoodIconTest removed (Robolectric capture timeout); commit cef96fa |
+| 7 | gpt-6-astra/high read-only | – | 3 design directions (Full Stop / Dayline / Soft Forms) |
+| 8 | resume of 6 | 01a117c2-… | Device Tasks 10–12: 198 tests; commit dcd96dd |
+| 9 | gpt-6-astra/high | 01a11813-0a4c-7020-8b81-854675f0a080 | 3 design drafts as HTML boards (draft 1 = owner notes: soft, grounded sans, timeline/ruler, calm, subtle) |
+
+Start rounds with `aufpasser\runden\start.ps1 -N <n> [-Model m] [-Resume id] [-ReadOnly]`.
+HTML mockups → PNG: headless Edge (`msedge --headless=new --screenshot=… --window-size=…`) from a temp dir without spaces.
 
 ## Toolchain notes
 - Gradle 8.11.1 at `C:\Users\kempe\dev-tools\gradle-8.11.1` (copied from JaySay), JDK 17, SDK 36, shared
