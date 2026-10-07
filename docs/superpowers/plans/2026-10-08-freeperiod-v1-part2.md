@@ -72,6 +72,10 @@ on top of the finished part 1 (Tasks 0–12, commits up to `e5e9e10`).
     all screens except Today) → B2 (astra, Today) → C1 (sol, persistence + backup v2 + migration)
     → C2 (reminders) → C3 (day entry) → C4 (onboarding + History) → D → E. Every round leaves the
     app compiling (new sealed states get minimal UI branches in the same round).
+15. **Device feedback 2026-10-08:** onboarding "I don't know" for cycle length is NOT preselected
+    (user ticks it when needed); onboarding progress (all entered answers) survives process death
+    and leaving the app (`rememberSaveable`/SavedStateHandle) – a crash or a trip to system
+    settings must never lose entries. Test `onboardingStateSurvivesRecreation` (C4).
 14. **Regulatory:** Claude re-checks current EU MDR/Play wording for the fertile window before C2.
 
 ## Global constraints (additions to part 1)
