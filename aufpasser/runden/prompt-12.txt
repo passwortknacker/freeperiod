@@ -1,0 +1,29 @@
+Round 12 – critical review of spec revision 2 and plan part 2 (read-only, no file changes).
+
+Read: `docs/superpowers/specs/2026-10-08-freeperiod-v1-scope-2.md` (new scope, wins),
+`docs/superpowers/specs/2026-10-07-freeperiod-design.md`, `docs/superpowers/plans/2026-10-08-freeperiod-v1-part2.md`,
+the finished code of part 1 (`engine/`, `app/`), and the design reference
+`docs/design/drafts/draft-5.html` + `docs/design/drafts/README.md`.
+
+Owner principle: lightweight by default, everything extra opt-in; not a medical app (no advice,
+only user data, calendar arithmetic, labelled estimates); stunning but simple design.
+
+Review concretely (severity, problem, exact correction):
+1. Spec coverage and contradictions between the two specs and the plan; anything in the owner's
+   v1 list missing from the plan.
+2. Correctness of every decided rule and test value (recompute dates/numbers): prediction v2,
+   timeline axis rules, "Period ended" = yesterday, fertile window, long-cycle hint, pill schedule,
+   recurrence edge cases, months without period.
+3. Data model v2 and migration v1→v2 (Room + backup schema 1→2): completeness, risks, simpler
+   alternatives (the customization model in Task C1 in particular – is there a leaner design?).
+4. Legal/policy wording risks for life phases, methods, fertile window, reminders (EU MDR,
+   Play health policy). Suggest exact safe wording EN where needed.
+5. Overload risk: where does v1 become heavy for a first-time user? What must be hidden by
+   default, what defaults per life phase?
+6. Round split and sizing for Codex (sol = logic, astra = design); ordering problems; what
+   needs Claude (device/screenshots).
+7. Design-system feasibility in Compose: 6 accents with AA, fonts bundled, timeline Canvas
+   semantics, chips without checkmarks but not colour-only.
+
+Answer: English Markdown, max ~1400 words: Verdict (2 lines) · Must-fix · Should-fix ·
+Simplifications · Verified OK.
