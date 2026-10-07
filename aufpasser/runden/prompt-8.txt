@@ -1,0 +1,30 @@
+Round 8 – "device": plan Tasks 10 (reminders), 11 (app lock), 12 (onboarding). Resumed session of
+round 6. Rules `AGENTS.md`; scope `app/` (engine only if strictly needed, with a test).
+
+Claude verified round 6: 162 tests green incl. Robolectric, lint + release green, screenshots
+recorded; removed `MoodIconTest` (captureToImage timed out under Robolectric; screenshots cover
+it). Committed cef96fa.
+
+Implement Tasks 10–12 exactly per plan incl. binding review decisions (reminders opt-in, period
+reminder keyed by period id via `periodReminderDue`, delivered only if notifications/channel
+enabled, daily reminder = one-time work re-enqueued at next local wall-clock time and on
+TIMEZONE_CHANGED/TIME_SET/BOOT_COMPLETED, POST_NOTIFICATIONS declared + requested when enabling,
+neutral texts by default; lock with BiometricPrompt BIOMETRIC_WEAK|DEVICE_CREDENTIAL,
+`KeyguardManager.isDeviceSecure` gate, elapsedRealtime timeout, FLAG_SECURE while enabled,
+content hidden until unlocked; onboarding 3 pages with Skip, last period + "Has it ended?" +
+end date → `addPeriod(start, end?)`, typical length 15–90 or "I don't know", reminders opt-in).
+Add the Settings rows for reminders (period reminder on/off + days before 1–5, daily reminder
+on/off + time, explicit notification text on/off) and app lock (on/off + timeout).
+
+Visual design note: a new design language is coming in a later round (do NOT invent a new style
+now); use the existing theme and keep UI code structured so styling can be swapped centrally
+(no hard-coded colours in screens).
+
+Tests: all named in Tasks 10–12 plus `dailyReminderRescheduledAfterTimeChange`,
+`lockRequiresSecureDevice`, `onboardingHasEndedCreatesCompletedPeriod`. Screenshot tests
+(w360dp-h800dp-xxhdpi, clock 2026-04-12): `OnboardingScreenshotTest` `page1_enLight`,
+`page2_deDark`, `page3_enLight`; `SettingsScreenshotTest` `main_enLight`, `main_deDark` updated
+(new rows); `LockScreenshotTest` `locked_enLight`.
+
+Verify: `tools\check.ps1 -Schnell` GREEN. Answer per AGENTS.md (screenshot tests to record, net
+lines).
