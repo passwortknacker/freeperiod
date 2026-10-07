@@ -1,0 +1,39 @@
+Round 1 – critical product/architecture review (read-only, no file changes).
+
+Context: We are planning "FreePeriod.", a free, ad-free, offline Android period tracker. Read
+`docs/brief.md` (full plan so far, owner decisions vs. Claude's proposals) and `docs/research.md`
+(market research). Nothing is implemented yet. The owner wants a hard, honest review before we
+write the spec and implementation plan. Release target: Google Play (owner has an organisation
+account with another live app). Implementation will be done mostly by Codex.
+
+Review critically and concretely. For each point: severity (blocker/high/medium/low), the
+problem, and a specific recommendation. Cover at least:
+1. Product: is the differentiation strong enough vs. Flo/Clue/Period Calendar and vs. drip/
+   Mooneva/Mensinator? What would make people switch and recommend it? What is missing, what is
+   unnecessary for v1.0 (YAGNI)? Is the v1.0 scope realistic for one dev + Codex? Propose a
+   sharper v1.0 cut if needed and what moves to v1.1/v1.2.
+2. Name "FreePeriod." and Play title: Play metadata policy risk, ASO, trademark/brand risk.
+3. Legal/policy: Play Health apps declaration, Data safety, privacy policy, EU MDR (fertile window
+   on by default with "not contraception" label), GDPR, Play Billing for Supporter tier
+   (does Play Billing Library force the INTERNET permission? consequences), anything else that
+   could block or delay release.
+4. Prediction design: correctness, edge cases (irregular cycles, PCOS, postpartum, perimenopause,
+   teens, missed logging, contraception), better but still simple algorithms, how to present
+   uncertainty honestly.
+5. Architecture and privacy: module split, derived periods from DayLog, no-INTERNET, backup/
+   restore and phone switch (D2D transfer vs. cloud backup vs. encrypted file), at-rest
+   encryption decision, app lock, discreet mode, data model future-proofing (Health Connect,
+   schema migrations), import formats (which competitor exports really exist).
+6. UX: home screen, logging speed, onboarding, accessibility, Material You vs. own accent colour.
+7. Release plan: milestones to Google Play production including closed testing requirements
+   for organisation accounts, store listing/ASO, F-Droid/IzzyOnDroid as extra channel.
+8. Risks we have not seen.
+
+Then give your **optimized plan**: a concise revised version of the brief (what to change, add,
+cut), and a recommended milestone list (M0 … Mn) to Play production with rough effort.
+
+Non-goals: do not write code, do not modify any file. You have no network; mark anything you are
+unsure about from memory as "verify".
+
+Answer format: English, Markdown, max ~1500 words. Sections: Verdict (3 lines) · Findings
+(sorted by severity) · Optimized plan · Milestones · Open questions for the owner (max 5).
