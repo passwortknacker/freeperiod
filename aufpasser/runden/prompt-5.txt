@@ -1,0 +1,32 @@
+Round 5 – "history+day": plan Tasks 7 and 8, plus two Today fixes. (Resumed session; rules
+`AGENTS.md`; scope `app/` only, engine only if strictly needed with a test.)
+
+Claude verified round 4: 103 tests green incl. Robolectric, lint + release green, 12 Today
+screenshots recorded and inspected (look good). Committed as 8e58f58.
+
+Fixes from Claude's screenshot review:
+1. Prediction date range is too long ("Apr 28, 2026 – Apr 30, 2026"). Use a compact, locale-aware
+   range without year when both dates are in the current year: EN "Apr 28–30", DE "28.–30. Apr.";
+   across months "Apr 29 – May 2" / "29. Apr. – 2. Mai"; add the year only if a date is not in
+   the current year. Implement in one small formatter function (skeleton "MMMd" via
+   `android.text.format.DateFormat.getBestDateTimePattern` or `DateTimeFormatter` with locale)
+   with a JVM/Robolectric test covering these 3 cases in EN and DE.
+2. Predicted days are not visible in any screenshot (below the fold). Add screenshot test
+   `TodayScreenshotTest.calendarPredicted_enLight` that captures only `MonthCalendar` with a range
+   (period days, predicted dashed days, logged dots, today ring, a predicted+logged day).
+
+Then Task 7 (History) and Task 8 (Day entry sheet) exactly per plan incl. the binding review
+decisions (CycleUse toggle, symptom counts window, clock injection, autosave serialized via
+repository, Clear day + Undo restoring tag links, "Mark as period start?" snackbar, future days
+read-only, overlap errors as text). Day entry replaces the `day/{epochDay}` placeholder route;
+"Log today" on the Today card opens today's entry. Symptom/mood icons: simple vector drawables
+in `res/drawable/` (outlined line style, 24dp, `?attr/colorOnSurface` tint) – keep them minimal
+and consistent; mood = 5 simple faces. Every chip/icon has a text label (accessibility).
+Strings EN + DE for every new text.
+
+Screenshot tests (w360dp-h800dp-xxhdpi, fixed clock 2026-04-12, pinned locale): History
+`withCycles_enLight`, `withCycles_deDark`, `empty_enLight`; Day entry `filled_enLight`,
+`filled_deDark`, `empty_enLarge`.
+
+Verify: `tools\check.ps1 -Schnell` GREEN. Answer per AGENTS.md (list screenshot tests to record,
+net lines).
