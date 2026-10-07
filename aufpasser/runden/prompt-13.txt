@@ -1,0 +1,46 @@
+Round 13 – "engine v2" (sol): plan part 2, Round A = Tasks A1–A4 with the binding
+"Decisions from review round 12".
+
+Rules: `AGENTS.md`. Scope fence: `engine/` (main + test). Outside engine you may ONLY touch
+`app/src/main/java/org/freeperiod/app/ui/today/` and `app/src/main/java/org/freeperiod/app/data/`
+for the minimal changes needed to keep the app compiling (e.g. new `PredictionState` branches
+rendered with a plain existing text style, new model fields mapped with defaults). Another Codex
+round (astra) is restyling the other app screens in parallel – do not touch `ui/theme`,
+`ui/components`, `ui/day`, `ui/history`, `ui/settings`, `ui/onboarding`, `lock`, resources.
+Gradle may be busy for a moment because of that parallel round; just retry/wait.
+
+Read: `docs/superpowers/specs/2026-10-08-freeperiod-v1-scope-2.md`,
+`docs/superpowers/plans/2026-10-08-freeperiod-v1-part2.md` (decisions section first, then
+Round A), and the existing engine code + tests.
+
+Requirements:
+1. A1 prediction v2 (centre last 6, spread last 12), `RangePassed.earliest`, `CycleTimeline` +
+   `cycleTimeline(periods, state, pill, fallbackLength, today)`, `fertileWindow(state, situation)`,
+   long-cycle hints (decision 9), `periodEndForTapToday`. Tests listed in A1 with the corrected
+   fixture (decision 2) plus the decision-9 boundary (44 vs 45).
+2. A2 `LifePhase` (6 values), `Method`, `PillSchedule` (validated ranges), `Situation`,
+   prediction precedence (decision 3) incl. new states `PredictionState.ScheduledBreak(range,
+   packDay)`, `PredictionState.ContinuousPill(packDay)`, `PredictionState.NeedsPillRhythm`,
+   `PredictionState.Menopause(fullMonthsSinceLastEnd: Int?, lastEnd: LocalDate?)`; overload
+   `predict(periods, settings, situation, today)` (the old 3-arg `predict` keeps working and
+   means REGULAR/NONE). `fullMonthsSinceLastPeriodEnded` per decision 10. Tests listed in A2 +
+   decision 3 precedence table test.
+3. A3 `Recurrence` + `nextDate(after, inclusive)` per decision 7, incl. anchor drift test
+   (2026-01-31 every 3 months → 04-30, 07-31, 10-31), n bounds, future anchor, month-end.
+4. A4 engine model contract for v2: `Tag` += `categoryId: Long? = null`, `iconKey: String =
+   "tag"`; `CustomCategory(id, name, iconKey, sortOrder, archived)`; `UiOverride(key, hidden,
+   sortOrder)`; `DayLog` += `ovulationTest: OvulationTest? = null` (enum NEGATIVE, POSITIVE; part of
+   isEmpty); new Symptom values HOT_FLUSHES, NIGHT_SWEATS, BRAIN_FOG, JOINT_PAIN;
+   `Reminder(id, kind: ReminderKind, title: String?, recurrence: Recurrence, time: LocalTime,
+   enabled: Boolean)` (`ReminderKind { PERIOD_DUE, DAILY_LOG, PILL, METHOD, CUSTOM }`, PERIOD_DUE
+   carries `daysBefore` via its own field `daysBefore: Int? = null`); `BackupData` schema 2 with
+   situation, customCategories, overrides, reminders, hintDismissals (Set<Long>); decode reads
+   `schemaVersion` from the authenticated JSON first and converts schema 1 → 2 (decision 6);
+   validation extended. CSV: add `ovulation_test` and custom item names (category:item) columns.
+   Tests: `decodesSchema1`, `roundTripV2`, invalid recurrence/pill config rejected.
+5. App stays compiling: map new fields with defaults in `data/` (no Room schema change in this
+   round – Room v2 is round C1), render new prediction states minimally in `ui/today/`.
+
+Non-goals: Room migration, UI redesign, new dependencies.
+Verify: `tools\check.ps1 -Schnell` GREEN. Answer per AGENTS.md incl. net lines and any decision
+you had to make that the plan left open.

@@ -10,6 +10,70 @@ on top of the finished part 1 (Tasks 0–12, commits up to `e5e9e10`).
 **Spec:** `2026-10-08-freeperiod-v1-scope-2.md` (wins) + `2026-10-07-freeperiod-design.md`.
 **Design reference:** `docs/design/drafts/draft-5.html|png` + README section 5.
 
+## Decisions from review round 12 (binding – override task text below where they differ)
+
+1. **Timeline:** `PredictionState.RangePassed` also carries `earliest`. `cycleTimeline(...)` takes
+   `fallbackLength: Int` (typical length, else median, else 28). Axis end = max(today, every
+   segment end, axisStart + fallbackLength − 1); without prediction max(start + fallbackLength − 1,
+   today + 3). Pill mode: axis = current pack (pack start … pack end), label "Pack day N".
+   Large font (fontScale ≥ 1.3): timeline stacks below the numeral.
+2. **Fixture:** ongoing period from 04-10, range **05-07..05-09** (centre 05-08) → recorded
+   04-10..04-12, rest 04-13..04-14, axis 04-10..05-09.
+3. **Phases:** `LifePhase { REGULAR, TRYING_TO_CONCEIVE, PREGNANT, POSTPARTUM, PERIMENOPAUSE,
+   MENOPAUSE }`. PERIMENOPAUSE = statistical predictions + perimenopause items + "Cycles may vary
+   more in this phase." MENOPAUSE = no prediction, history summary + months counter.
+   **Precedence:** manual pause or PREGNANT/POSTPARTUM/MENOPAUSE → no prediction, no fertile window,
+   no period reminder; else combined pill with rhythm → scheduled break; combined pill without
+   rhythm or continuous → no statistical prediction, card says "Add your pack rhythm to see
+   scheduled breaks." / "Continuous use – no scheduled break."; else statistical. User preferences
+   (e.g. fertile window on) are kept while suppressed. Engine API: `fertileWindow(state,
+   situation)` returns null unless allowed.
+4. **Pill:** `today < packStart → null`; activeDays 1..365, breakDays 0..30; wording "Scheduled
+   break" (EN) / "Geplante Pause" (DE), never "pill-free".
+5. **Customization model (simplified, replaces Task C1 entities):** built-in categories/items are
+   defined in code (typed DayLog fields stay). Room v2: `TagEntity` += `categoryId: Long?`
+   (null = default "Tags" category) + `iconKey: String` (stable key, never a resource id);
+   new `CustomCategoryEntity(id, name, iconKey, sortOrder, archived)`; `UiOverrideEntity(key,
+   hidden, sortOrder)` for visibility/order of built-in categories/items and custom categories;
+   `DayLog` += `ovulationTest: OvulationTest?`; `SituationEntity(id = 0, …)`;
+   `ReminderEntity(id, kind, title?, recurrence fields, time, enabled, lastDeliveredDate?)`;
+   `HintDismissalEntity(startPeriodId)`. Selections of custom items keep using `DayTagEntity`.
+   Notes longer than 2000 chars are preserved (limit applies to typing only).
+   DataStore reminder prefs migrate once into `ReminderEntity` rows (flag `remindersMigrated`).
+6. **Backup:** file format stays 1; payload `schemaVersion` 1 or 2 is read from the authenticated
+   JSON first, then decoded with the matching model and converted to 2. Validation covers IDs,
+   FKs, built-in keys, recurrence params, complete pill config. On restore: delivery identities
+   (`lastNotifiedPeriodId`, `lastDeliveredDate`) reset; reminders keep their enabled flag and are
+   rescheduled after the transaction.
+7. **Recurrence:** occurrence k of EveryNMonths = `anchor.plusMonths(k·n)` (no drift: Jan 31 →
+   Apr 30 → Jul 31); n in 1..999; future anchor → first occurrence = anchor; `nextDate(after,
+   inclusive)`. Notification identity = (reminderId, date); delivered only if notifications and
+   channel enabled. Local time → `ZonedDateTime.of(date, time, systemZone)` at scheduling (DST gap
+   shifts forward, overlap earlier offset); reschedule on time/zone change and boot.
+8. **Onboarding picker:** contiguous selected days form one period; a block that includes today
+   asks "Still ongoing?" (yes → end null); tapping a marked day unmarks it (splits blocks). Commit
+   via one repository transaction `addPeriods(list)`; blocks overlapping existing periods are
+   skipped and reported. Cycle-length question hidden when ≥1 eligible completed cycle exists.
+   Non-drag alternative: tap start and end day (accessibility).
+9. **Long-cycle hint:** baseline = up to 12 eligible cycles before the candidate (≥3), threshold
+   length > 1.6 × median (median 28 → 45 qualifies, 44 not); candidates include auto-excluded
+   long cycles; dismissal persisted. Copy: "This cycle was longer than your recent cycles. Review
+   your entries if you'd like."
+10. **Months counter:** "N full months since your last recorded period ended" (complete months
+    from end + 1; ongoing → 0; no completed period → hidden). Example end 04-14, today 05-15 → 1.
+11. **Wording (EN; DE equivalents):** general "FreePeriod. records what you enter and shows
+    calendar estimates. It does not diagnose conditions or recommend treatment."; fertility
+    disclaimer as spec + label "Possible fertile days (estimate)", never "safe days"; reminders
+    "Notifications may arrive later than the time you choose."; phase picker "Choose the view
+    that suits your situation. You can change it anytime."
+12. **Defaults (lightweight):** Regular → short symptom set + "More"; Sex, Discharge, Tags, Note,
+    custom categories collapsed; all reminders off; TTC only offers the fertile window.
+13. **Round order:** A (sol, engine incl. model contract) ∥ B1 (astra, design system applied to
+    all screens except Today) → B2 (astra, Today) → C1 (sol, persistence + backup v2 + migration)
+    → C2 (reminders) → C3 (day entry) → C4 (onboarding + History) → D → E. Every round leaves the
+    app compiling (new sealed states get minimal UI branches in the same round).
+14. **Regulatory:** Claude re-checks current EU MDR/Play wording for the fertile window before C2.
+
 ## Global constraints (additions to part 1)
 
 - All part-1 constraints stay (no INTERNET, LocalDate epoch days, enums by name, EN+DE strings,

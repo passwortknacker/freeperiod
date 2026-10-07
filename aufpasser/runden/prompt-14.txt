@@ -1,0 +1,49 @@
+Round 14 – "design system" (astra): plan part 2, Task B1, implemented in Compose.
+
+Rules: `AGENTS.md`. Scope fence: `app/src/main/java/org/freeperiod/app/ui/theme/`,
+`app/src/main/java/org/freeperiod/app/ui/components/` (new), `ui/nav/`, `ui/day/`,
+`ui/history/`, `ui/settings/`, `ui/onboarding/`, `lock/` (UI only), `data/SettingsStore.kt`
+(accent setting), `app/src/main/res/` (except `font/` which is already provided), and the
+corresponding tests under `app/src/test/`. Do NOT touch `engine/`, `ui/today/`, `data/db/`,
+`data/Repository.kt`: another Codex round (sol) changes the engine and Today in parallel. Gradle
+may be busy for a moment because of that round; just retry/wait.
+
+Design reference (final, owner-approved): `docs/design/drafts/draft-5.html` + `draft-5.png` +
+README section 5, your own work. Spec: `docs/superpowers/specs/2026-10-08-freeperiod-v1-scope-2.md`
+§1 and §3; plan part 2 decisions section (esp. 11, 12) and Task B1.
+
+Fonts are already in `app/src/main/res/font/`: `bricolage_grotesque.ttf` (variable: opsz, wdth,
+wght) and `dm_sans.ttf` (variable: opsz, wght); OFL texts in `app/src/main/assets/licenses/`.
+Use Compose `Font(resId, weight, variationSettings = FontVariation.Settings(...))` for the weights
+you need (minSdk 26). Add both fonts to the About → open-source licences text.
+
+Requirements:
+1. Tokens: Daylight palette light + dark (as draft 5), 6 accents (`enum Accent { CORAL (default),
+   PLUM, SAGE, OCEAN, OCHRE, INK }`) each with light + dark tonal sets (accent, onAccent,
+   container, onContainer, period fill, today ring, selected chip bg/border/text); predicted =
+   dashed neutral-violet usable with all accents. A JVM unit test computes WCAG contrast for every
+   accent × mode pair used for text (≥ 4.5) and essential graphics (≥ 3.0).
+2. Typography: Bricolage Grotesque for headings/numerals, DM Sans for text/controls, scale from
+   the draft. Shapes: Fieldnote box style from draft 5.
+3. Components in `ui/components/`: FpCard, FpPanel, FpChip, FpFaceChip, FpButton (primary/
+   secondary), FpSectionRow (collapsed row with icon, title, summary, chevron), FpSwitchRow,
+   FpTopBar, FpNavBar (taller selected pill, closer to label), FpLegend. Chips/faces: selected =
+   filled container + stronger border + medium weight, NO checkmarks, `selected` semantics.
+4. Apply the system to Day entry (mood first, then Flow, Pain, Symptoms open; Sex, Discharge,
+   Tags, Note as collapsed FpSectionRows with summaries; Note expands inline to a multi-line field
+   with soft background, autosave as today, placeholder "Anything else about today?", collapsed
+   summary = first words), History (styling only – the scrollable chart comes later; keep data
+   behaviour), Settings (replace "Use wallpaper colours" with Appearance → Accent colour picker:
+   6 swatches with names, live preview; remove `dynamicColor` from `AppSettings`), Onboarding,
+   Lock, Backup, Privacy, About, bottom navigation. Today will be done in a later round – it must
+   still compile and simply pick up the new theme.
+5. Icons: simple original line icons or Material Symbols shapes (Apache-2.0) as vector drawables;
+   stable keys; mood faces as in the draft.
+6. Motion: chip selection fade ≈120 ms; respect the system animator scale.
+7. Screenshot tests (w360dp-h800dp-xxhdpi, clock 2026-04-12): keep all existing names (Claude
+   re-records them) and add `AccentScreenshotTest` (`settingsAppearance_enLight`, and Day entry
+   with each accent in light: `dayEntry_<accent>_enLight`).
+
+Quality bar: the result must look like draft 5 on a real phone – alignment, spacing rhythm,
+contrast, German text lengths, fontScale 1.5. Verify: `tools\check.ps1 -Schnell` GREEN.
+Answer per AGENTS.md (screenshot tests to record, net lines).
