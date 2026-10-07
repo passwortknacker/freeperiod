@@ -1,0 +1,47 @@
+Round 4 – "core": implement plan Tasks 4, 5 and 6 in `:app`.
+
+Rules: `AGENTS.md`. Scope fence: `app/` only (plus new Room schema JSON under `app/schemas/`).
+Do not change `:engine` public API (if something is missing, add it minimally in `engine/` with a
+test and report it). No new dependencies: everything needed is already in
+`gradle/libs.versions.toml` / `app/build.gradle.kts`.
+
+Context: `:engine` is done (round 3, committed): `Model.kt`, `PeriodRules`, `Prediction.kt`
+(`predict`, `predictedDays`, `PredictionState`), `backup/BackupData.kt` (`BackupData`,
+`BackupSettings`), `Stats`, `Reminders.kt`. The app is a placeholder (`MainActivity`,
+`ui/theme/Theme.kt` with coral palette, `FreePeriodApp`). Read the plan
+`docs/superpowers/plans/2026-10-07-freeperiod-v1.md`: "Decisions from plan review (round 2)"
+(binding), then Tasks 4, 5, 6 incl. Interfaces; spec §6 (screens) and §7.
+
+Requirements:
+1. Task 4 – `AppSettings`/`LockTimeout`/`SettingsStore` (DataStore, device prefs only, defaults
+   exactly as the plan's Interfaces block), `AppContainer` (manual DI, created in
+   `FreePeriodApp`), theme (existing palette; `dynamicColor` from settings; dark via system),
+   navigation with bottom bar Today · History · Settings (History/Settings = simple placeholder
+   screens with title for now), onboarding route shown while `!onboardingDone` (placeholder with
+   a "Continue" button that sets it – real onboarding comes in Task 12). `MainActivity` extends
+   `FragmentActivity` already now (needed later for BiometricPrompt).
+2. Task 5 – Room exactly per plan (entities, FKs, indices, `DomainSettingsEntity`, converters,
+   DAOs, `FreePeriodDatabase` v1 with exported schema), `Repository` with the full Interfaces
+   block (transactions + one `Mutex` for writes; `Result` failures carry
+   `PeriodValidationException(error)`), clock injected. Tests listed in the plan.
+3. Task 6 – Today screen: `TodayViewModel`, `TodayCard` (texts per plan, EN + DE), `MonthCalendar`
+   (week start from locale, `DayMarks` flags rendering: period = filled circle in primary,
+   predicted = dashed outline, logged = small dot under the number, today = ring; never colour
+   alone; content description per day e.g. "12 October, period day, logged"), swipe or arrows to
+   change month, tap on a day → navigates to a route `day/{epochDay}` that shows a placeholder
+   (Day entry comes in Task 8). Primary/secondary buttons per plan; "Pause predictions" action
+   updates domain settings via repository. Midnight/resume recompute via `onResume()`.
+   Design: calm & minimal, generous spacing, Material 3 components, one accent (primary), no
+   gradients, no illustrations. Card with large cycle-day text, prediction sentence below.
+4. Tests: all tests named in Tasks 4–6, Robolectric ones with `@Config(sdk = [35])`; Roborazzi
+   screenshot tests for Today (`empty`, `regular`, `rangePassed`, `ongoing`) × (EN light, DE dark,
+   EN fontScale 1.5) at `w360dp-h800dp-xxhdpi`, saved under `app/src/test/screenshots/today/`.
+   Fixed clock 2026-04-12 in screenshots; use Locale pinned per test.
+5. Strings: all in `values/strings.xml` + `values-de/strings.xml` (DE informal "du", warm,
+   short). App name stays "FreePeriod." untranslatable.
+
+Non-goals: no day entry, history content, settings content, reminders, lock, backup UI (later
+tasks). Do not delete `SmokeScreenshotTest` (Claude replaces references).
+
+Verify: `tools\check.ps1 -Schnell` GREEN (Robolectric tests compile but run only on Claude's
+side). Answer per AGENTS.md incl. list of screenshot tests for recording and net lines.
