@@ -61,9 +61,10 @@ or conception claims, temperature/sympto-thermal method, pregnancy mode, iOS.
 
 All dates are `LocalDate` (calendar days, no time zone; travel never shifts entries).
 
-- `Period(id, start: LocalDate, end: LocalDate?, excludeCycle: Boolean)` – explicit boundaries.
-  `end == null` = ongoing. `excludeCycle` = the cycle starting at this period is not used for
-  predictions (user flag, e.g. after pill stop, pregnancy, illness).
+- `Period(id, start: LocalDate, end: LocalDate?, cycleUse: AUTO|INCLUDE|EXCLUDE)` – explicit
+  boundaries. `end == null` = ongoing. `cycleUse` = whether the cycle starting at this period is
+  used for predictions: AUTO applies the 15–90-day rule, INCLUDE/EXCLUDE are user overrides
+  (e.g. after pill stop, pregnancy, illness). (Changed after plan review round 2.)
 - `DayLog(date PK, flow: Flow?, mood: Mood?, symptoms: Set<Symptom>, pain: Pain?,
   sex: Sex?, discharge: Discharge?, note: String?)` + `Tag(id, name, archived)` +
   `DayTag(date, tagId)`. A missing field = **not logged** (unknown), distinct from `Flow.NONE`.

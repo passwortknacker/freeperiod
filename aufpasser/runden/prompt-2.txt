@@ -1,0 +1,29 @@
+Round 2 – critical review of the implementation plan (read-only, no file changes).
+
+Context: You reviewed the product brief in round 1 (`aufpasser/runden/runde-1.md`). Claude turned
+it into the approved spec `docs/superpowers/specs/2026-10-07-freeperiod-design.md` and wrote the
+implementation plan `docs/superpowers/plans/2026-10-07-freeperiod-v1.md`. Implementation starts
+right after this review: Codex (gpt-6.1-sol) implements rounds, Claude verifies outside the
+sandbox (Robolectric/Roborazzi, device). The Codex sandbox has no network; Gradle runs offline
+with a shared cache that Claude fills once in Task 0.
+
+Review the plan against the spec and for executability. Concretely:
+1. Spec coverage: every spec requirement for v1.0 has a task; nothing from v1.1+ crept in.
+2. Correctness of decided details: prediction algorithm and the test values (recompute every
+   expected date/number in Task 2 and Task 1 by hand and report any wrong one), backup format and
+   crypto parameters (AES-GCM nonce/AAD use, PBKDF2 on Android API 26+, iteration count vs. phone
+   speed), reminder rule, Room schema, period rules (ongoing period, overlap, future dates).
+3. Interfaces: type/name consistency across tasks; missing types or functions a later task uses
+   but no task defines; anything an implementer cannot decide alone.
+4. Risks for Codex execution: tasks too big for one round, ordering problems, things that need
+   network or a device, flaky tests (time, locale, first day of week, PBKDF2 duration).
+5. Android/Play pitfalls: no-INTERNET guarantee vs. libraries (Compose, WorkManager, biometric,
+   Room) adding permissions, backup rules XML for API 26–30 vs 31+, POST_NOTIFICATIONS, Data
+   safety answers, target audience/teens, FLAG_SECURE side effects, per-app language.
+6. Simplifications: what can be cut or merged without losing spec requirements.
+
+Non-goals: do not write code or change files. No network – mark uncertain facts "verify".
+
+Answer format: English Markdown, max ~1200 words. Sections: Verdict (2 lines) · Must-fix (numbered,
+each: location in plan, problem, exact correction) · Should-fix · Simplifications · Verified OK
+(short list of what you checked and found correct).

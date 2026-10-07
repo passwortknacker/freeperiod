@@ -1,0 +1,37 @@
+Round 3 – "engine": implement plan Tasks 1, 2 and 3 (pure Kotlin module `:engine`).
+
+Rules: `AGENTS.md`. Scope fence: only `engine/` (main + test). Do not touch `app/`, Gradle
+version catalog, docs.
+
+Context: Project skeleton exists (Task 0 done by Claude; `engine/src/main/kotlin/org/freeperiod/
+engine/Model.kt` is a placeholder with `Engine.NAME` and `SmokeTest` – replace/remove both as you
+see fit). Read the plan `docs/superpowers/plans/2026-10-07-freeperiod-v1.md`: section
+"Decisions from plan review (round 2)" (binding), then Task 1, Task 2, Task 3 with their
+Interfaces blocks, and spec §4–§5 and §7 (backup file) in
+`docs/superpowers/specs/2026-10-07-freeperiod-design.md`.
+
+Requirements:
+1. Task 1 – Model.kt, PeriodRules.kt, Stats.kt exactly with the names/signatures of the plan's
+   Interfaces block (incl. `CycleUse`, `FlowLevel`, `Cycle.startPeriodId`, `PeriodError`,
+   `DayLog.isEmpty()`), all listed tests first (red), then implementation.
+2. Task 2 – Prediction.kt with `PredictionSettings`, `Basis`, `PredictionState`, `predict`,
+   `predictedDays`; all listed tests with the exact dates/values from the plan; every test passes
+   an explicit `today` (default latest start + 10 days).
+3. Task 3 – backup/BackupData.kt, backup/BackupCodec.kt (JCA only: `PBKDF2WithHmacSHA256`,
+   `AES/GCM/NoPadding`; header layout + bounds from the plan), export/CsvExport.kt (columns incl.
+   `cycle_use`), Reminders.kt (`periodReminderDue` keyed by period id). Model types serializable
+   via kotlinx.serialization with a LocalDate-as-ISO-string serializer. All listed tests, plus:
+   `iterationsAboveMaxRejected`, `oversizedFileRejected` (use a small injected max in a test-only
+   overload or internal parameter, not a 20 MB allocation), `duplicateDayDatesRejected`,
+   `unknownTagReferenceRejected`, `typicalLengthOutOfRangeRejected`.
+4. Add `Stats.symptomCounts(logs: Collection<DayLog>, from: LocalDate, toExclusive: LocalDate):
+   Map<Symptom, Int>` now (History uses it later) with test `symptomCountsInRange`.
+5. Public API small and documented with one-line KDoc per public type/function; no Android
+   imports in `:engine`.
+
+Non-goals: no app/UI/Room code, no new dependencies, no changes outside `engine/`.
+
+Verify: `powershell -NoProfile -ExecutionPolicy Bypass -File tools\check.ps1 -Schnell` must be
+GREEN (it also compiles `:app`, which must stay untouched and green). Report test counts.
+Answer format per AGENTS.md, plus: net lines, and any place where you had to decide something the
+plan left open.
