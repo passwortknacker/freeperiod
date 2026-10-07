@@ -139,3 +139,27 @@ Choose **Interval** if the owner prefers confident graphic design and stronger d
 **Checked in this round:** `python -B -`, 26 in-memory structural, content, geometry-budget, fallback-font measurement, and contrast checks passed, exit 0. The 26 palette-pair measurements have minima of 5.60:1 for text and 3.23:1 for essential outlines; decorative brand/full-stop accents are not information-bearing text. Fallback timeline labels have at least 26 px horizontal separation; closed Day entry and History content budgets are 730/732 px and 649.8/666 px respectively.
 
 **Verification limit:** This round did not launch a browser, write preview images, or fetch fonts: a new Chrome session would write profile files outside the two-file scope fence. These are static fit and contrast checks, not a fresh browser-rendered overflow check; named-font rendering still needs owner/Claude review. No build, app tests, or screenshot tests were run or changed. The original README content and drafts 1–3 remain untouched.
+
+## 5 · Combined, refined
+
+[Open draft-5.html](draft-5.html)
+
+**Direction:** Restore Daylight's light palette while retaining Fieldnote's typography and opposing card corners. The board now shows five 360 × 780 px screens with 24 px gaps: Today light, Today with an ongoing period, Day entry, History, and Today dark.
+
+**Palette:** Light background/surface `#FBF7F2` / `#FFFDF9`, primary and period fill `#F3B6A4`, selected surface `#F9DED3`, outline `#886357`, text/secondary `#302923` / `#6E6159`. No stronger fill was needed for contrast. Draft 4's dark tokens are unchanged, including background/surface `#211E1C` / `#302724`, coral `#EFAC93`, and selection `#604034`.
+
+**Today:** The 72 px numeral returns to Daylight's scale. Its coral dot is a separate same-size DM Sans glyph, baseline-aligned with a 4 px layout gap; padding compensates for the numeral's negative letter spacing. The horizontal timeline remains alongside it. The top row shrinks from 130 to 110 px and the card from 270 to 244 px, moving prediction and actions up without adding content or reducing touch targets.
+
+**Ongoing state:** The second phone shows **Period · day 3**, a large **3.**, a solid Apr 10–12 running segment ending at today's ring, and **Period ended** / **Log today**. Calendar Apr 10–12 are recorded period days; Apr 12 independently retains its today ring and saved-entry dot. The old Apr 28–30 prediction is not reused in this different state, and no end date is invented.
+
+**History:** Columns now read Nov, Dec, Jan, Feb, Mar, with the newest cycle at the right. A native horizontal scroll region, initially positioned at the right, reveals the clipped older column beneath a narrow fade; it also supports keyboard focus. Values and the shared zero baseline remain unchanged. A single 72 px row below the chart gives the visible November exclusion, its reason, and the prediction-use toggle, replacing the large exclusion card.
+
+**Visible-range fixture:** The 318 px chart sits in a 297 px viewport, so all five supplied cycles remain at least partially visible throughout its 21 px scroll travel. November 20 is the only excluded cycle within that visible range, hence exactly one exclusion row is shown; no out-of-range exclusions are added. A native implementation with a longer history should derive these rows from the current visible date interval. This HTML needs no JavaScript.
+
+**Day entry and navigation:** Mood is above Flow, followed by Pain and Symptoms. Selection remains tick-free with fill, a stronger border, and heavier text. Navigation pills increase from 28 to 34 px high; their label gap decreases from 3 to 1 px, while each navigation target remains 66 px high.
+
+**Fonts and icons:** Bricolage Grotesque for headings/numerals and DM Sans for controls/text; the decorative dot also uses DM Sans to retain Daylight's proportions. All line icons and mood faces are original inline SVG geometry drawn for FreePeriod., available as part of this project under its existing licence. No proprietary icon set, external icon font, or third-party artwork is included.
+
+**Checked:** `python -B -`, 37 in-memory checks passed, exit 0: document structure, five-screen order, state-specific dates/actions, chronological chart values, exclusion visibility at both scroll limits, geometry budgets, fallback-font measurements, and 26 text/outline contrast pairs. Minimum checked contrast is 5.60:1 for text and 3.23:1 for essential outlines; decorative logo/full-stop accents remain non-informational. The numeral and separate dot measure 102 px inside their 112 px column. Closed Day entry uses a 730/732 px height budget; History uses 588.2/666 px.
+
+**Scope and limits:** Only draft-5.html was created and this section appended; previous README bytes and drafts remain unchanged. No browser profile, preview images, network calls, build outputs, app tests, or screenshot tests were produced. Browser-rendered overflow and named Google Fonts still require owner/Claude review; the checks here use static geometry and installed fallback fonts. Net deliverable change: 450 HTML lines plus this 24-line appendix; no existing content removed.

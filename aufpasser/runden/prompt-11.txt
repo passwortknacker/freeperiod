@@ -1,0 +1,31 @@
+Round 11 – refine the combined draft (resumed). Scope fence: write ONLY
+`docs/design/drafts/draft-5.html` (copy draft-4 as start) and append "## 5 · Combined, refined" to
+`docs/design/drafts/README.md`. Touch nothing else.
+
+Owner feedback on draft 4 (verbatim where it matters):
+1. "Actually, the color scheme of 1 was better. Go in between the two or back to 1, your choice."
+   → go back to Daylight's (draft 1) palette, at most a very slight step stronger for the primary
+   button/period fill only if contrast needs it.
+2. "The period behind the 12 actually touches it. I liked the way it looked in design 1." → the
+   coral full stop must sit like in draft 1: clear small gap after the numeral, baseline-aligned,
+   same size relation as draft 1.
+3. "I think there is more space under the 12 now compared to 1, that design was already great
+   though. Make it smooth, but don't clutter." → tighten the Today card vertical rhythm back to
+   draft 1's density; the horizontal mini timeline next to the 12 stays; nothing added.
+4. "Period started" turns into "Period ended" while a period is ongoing → add a 5th phone screen
+   to the board: Today light during an ongoing period (period started Apr 10, today Apr 12,
+   cycle day 3; card shows "Period · day 3", timeline shows the running period segment, primary
+   action "Period ended", secondary "Log today"; calendar shows Apr 10–12 as period).
+5. History: below the scrollable bar chart, show only the excluded cycles that fall in the visible
+   time range (one compact row each with the toggle). Indicate horizontal scrollability of the
+   chart subtly (e.g. bars continue off the left edge with a soft fade, latest cycle at the right).
+6. Bottom navigation: the selected tab's coloured pill should be a bit taller (more height on the
+   y axis) and sit a little closer to its label.
+7. Day entry: Mood moves to the top (above Flow).
+8. Icons must be free to use: draw them as simple original line icons or match Material Symbols
+   (Apache-2.0) shapes; no copied proprietary icon sets.
+9. Dark mode: owner loves its mood – keep it.
+
+Board: 5 phones (Today light, Today ongoing period, Day entry, History, Today dark), same size and
+gaps, title "Combined, refined". Verify fit/contrast yourself.
+Answer: files + 3 lines.
