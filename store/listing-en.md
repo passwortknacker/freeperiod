@@ -17,6 +17,7 @@ FreePeriod. is a period tracker, cycle calendar and daily diary for Android. Kee
 A clear view of today
 • Record when your period starts and ends.
 • See recorded bleeding days, your cycle day and clearly labelled calendar estimates.
+• Optional, easy to switch off: days with a higher chance of pregnancy, shown as a plain calendar estimate.
 • Explore your cycle history and summaries, with estimates based on the entries available.
 
 A diary that fits your day
@@ -39,7 +40,7 @@ Make it comfortable
 Choose from six accent colours, light or dark appearance, and English or German. Add past periods during setup, or skip ahead and begin with today.
 
 Honest limits
-FreePeriod. records what you enter and shows calendar estimates. It does not diagnose conditions or recommend treatment. It is not a medical device and is not for contraception. There is no fertile-window feature. Estimates can differ from your actual cycle; seek qualified medical advice for health concerns.
+FreePeriod. is not a medical device. It is not a method of contraception and not a tool to help you get pregnant. It gives no medical advice, diagnosis or treatment. All dates, including days with a higher chance of pregnancy, are calendar estimates from your own entries. They can be wrong and are not reliable. Talk to a doctor or pharmacist about contraception, pregnancy or health questions.
 
 For ages 13 and up.
 Source code (GPL-3.0): https://github.com/passwortknacker/freeperiod
@@ -61,7 +62,7 @@ Welcome to FreePeriod. 1.0.0.
 |---|---:|---:|
 | Title | 28 | 30 |
 | Short description | 71 | 80 |
-| Full description | 2680 | 4000 |
+| Full description | 2898 | 4000 |
 | Release notes | 313 | 500 |
 
 Copy only the field content above, not the Markdown headings or this table. Counts use Unicode characters and LF line breaks, excluding the outer blank lines. Replace passwortknacker and support@jaysay.it before publication and recount after editing. Both locales use the requested title; no price or ranking claim is added to it.

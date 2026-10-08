@@ -17,6 +17,7 @@ FreePeriod. ist dein Periodentracker, Zykluskalender und tägliches Tagebuch fü
 Heute auf einen Blick
 • Trage Beginn und Ende deiner Periode ein.
 • Sieh aufgezeichnete Blutungstage, deinen Zyklustag und klar gekennzeichnete Kalenderschätzungen.
+• Auf Wunsch abschaltbar: Tage mit erhöhter Chance auf Schwangerschaft, als reine Kalenderschätzung.
 • Schau dir deinen Zyklusverlauf und Zusammenfassungen an. Schätzungen beruhen auf den vorhandenen Einträgen.
 
 Ein Tagebuch für deinen Alltag
@@ -39,7 +40,7 @@ So, wie es zu dir passt
 Sechs Akzentfarben, helle und dunkle Darstellung sowie Deutsch und Englisch. Trage beim Einrichten frühere Perioden ein oder überspringe den Schritt und beginne mit heute.
 
 Klare Grenzen
-FreePeriod. hält deine Einträge fest und zeigt Kalenderschätzungen. Die App stellt keine Diagnosen und empfiehlt keine Behandlung. Sie ist kein Medizinprodukt und nicht zur Verhütung geeignet. Eine Funktion zur Schätzung fruchtbarer Tage gibt es nicht. Schätzungen können von deinem tatsächlichen Zyklus abweichen. Wende dich bei gesundheitlichen Fragen an medizinisches Fachpersonal.
+FreePeriod. ist kein Medizinprodukt. Die App ist kein Verhütungsmittel und kein Hilfsmittel, um schwanger zu werden. Sie gibt keine medizinische Beratung, stellt keine Diagnosen und empfiehlt keine Behandlung. Alle Daten, auch die Tage mit erhöhter Chance auf Schwangerschaft, sind Kalenderschätzungen aus deinen eigenen Einträgen. Sie können falsch sein und sind nicht verlässlich. Wende dich bei Fragen zu Verhütung, Schwangerschaft oder Gesundheit an Ärztin, Arzt oder Apotheke.
 
 Ab 13 Jahren.
 Quellcode (GPL-3.0): https://github.com/passwortknacker/freeperiod
@@ -61,7 +62,7 @@ Willkommen bei FreePeriod. 1.0.0.
 |---|---:|---:|
 | Title | 28 | 30 |
 | Short description | 65 | 80 |
-| Full description | 3082 | 4000 |
+| Full description | 3304 | 4000 |
 | Release notes | 324 | 500 |
 
 Copy only the field content above, not the Markdown headings or this table. Counts use Unicode characters and LF line breaks, excluding the outer blank lines. Replace passwortknacker and support@jaysay.it before publication and recount after editing. Both locales use the requested title; no price or ranking claim is added to it.

@@ -39,7 +39,7 @@ Support messages deliberately emailed by users and technical requests to the Git
 
 - Declare the menstrual/period tracking feature in the current applicable category. The app records periods, symptoms, mood, pain and related diary entries, with calendar estimates and optional reminders.
 - Do not select “no health features” merely because all processing is local.
-- Optional life-phase, method, pill-pack and ovulation-test **logging** does not provide a fertile-window feature, contraception guidance, medication dosing advice or treatment recommendations.
+- Optional life-phase, method, pill-pack and ovulation-test **logging** provides no contraception guidance, medication dosing advice or treatment recommendations. The app shows days with a higher chance of pregnancy as a calendar estimate (on by default, can be switched off, hidden for hormonal methods, pregnancy and menopause), always next to the "not a medical device" disclaimer (owner decision 2026-10-08, spec §12).
 - Do not market fertility prediction, pregnancy detection, diagnostic accuracy, disease management or contraceptive efficacy.
 - Product position: not a medical device. No CE marking, FDA clearance or other certification is claimed.
 - Use this wording consistently: “FreePeriod. records what you enter and shows calendar estimates. It does not diagnose conditions or recommend treatment.” Add that it is not for contraception and that estimates can differ from actual cycles.

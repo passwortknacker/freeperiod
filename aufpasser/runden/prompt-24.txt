@@ -1,0 +1,45 @@
+Round 24 – owner's device feedback, visual polish (astra, fresh session). Rules: `AGENTS.md`.
+Scope: `app/src/main/**` UI + resources and the matching tests in `app/src/test/**`. No engine,
+database or backup changes. Design reference: `docs/design/drafts/draft-5.png` and the existing
+design system (`ui/theme`, `ui/components`). Round 23 (higher-chance-of-pregnancy days +
+disclaimer) has just landed – keep its behaviour and wording.
+
+Owner feedback from the phone (German UI), to solve with care for a calm, lively, uncluttered look:
+
+1. **Today before the first period:** above the calendar there is only a short welcome text card;
+   after the first entry the big cycle card appears and the calendar jumps down. Make an empty-state
+   card with the same structure and height as the cycle card (e.g. muted "–." numeral, empty
+   timeline track, friendly line "Tap “Period started” when your period begins", same two buttons)
+   so nothing shifts. Light + dark, large font.
+2. **Settings › "Day entry" / "Tageseintrag":** owner: "klingt verwirrend und steuert sich nicht
+   optimal". Rename the entry and screen to "Customize day entry" / "Tageseintrag anpassen"
+   (settings row with a one-line subtitle). Redesign the screen: today each category is a huge card
+   with a switch, up/down arrows and an "Items" dropdown. Make it a compact list: one row per
+   category (icon, name, small summary like "5 items", switch); reorder by long-press drag (with
+   accessible "Move up/down" custom actions), tap the row to open the category's items (show/hide,
+   add, rename). Keep all existing capabilities and persistence; only the presentation changes.
+3. **Appearance:** owner: "make it more obvious that the preview is a preview". The preview card
+   looks like a real interactive screen. Show it as a small framed mini-phone/sample with a clear
+   "Preview"/"Vorschau" badge, non-interactive (no ripples), scaled down, and add a few more accent
+   touches (cycle-number dot, calendar period day) so the accent choice is visible at a glance.
+4. **Onboarding past periods calendar:** every month needs its header (the first visible month
+   currently shows weeks without "March 2026"); add the side gutter so the calendar aligns with the
+   texts; spacing between the range switch and the calendar; selected range days read as one soft
+   band. Keep the drag behaviour (Claude fixed: list scrolling is disabled while drag-selecting).
+5. **Line breaks:** typography now uses `Hyphens.Auto`. Check the German chip rows (Blutung,
+   Ausfluss, Symptome: "Schmierblutung", "Ungewöhnlich", "Kein Ausfluss") at 360 dp and large font;
+   chips must never break inside a word without a hyphen. Prefer fewer chips per row / wrapping
+   rows over tiny chips. Long top-bar titles ("Datenschutzerklärung", "Tageseintrag anpassen") must
+   fit or wrap cleanly.
+6. **Day entry sheet:** swipe-to-close and the drag handle were removed by Claude (closes via X /
+   back). Make the top area look intentional without the handle.
+
+Non-goals: no new tracking types (owner wants Daylio-like scales later – v1.1), no wording changes
+to predictions/disclaimer, no new dependencies.
+
+Screenshot tests (Claude records): update the existing ones for the changed screens and add
+`today/emptyCard_enLight`, `today/emptyCard_deDark`, `day-settings/list_enLight`,
+`day-settings/list_deLargeDark`, `day-settings/items_enLight`, `settings/appearancePreview_deDark`,
+`onboarding/pastPeriodsMonths_enLight`, `day/chipsGerman_deLarge`.
+Verify with `powershell -NoProfile -ExecutionPolicy Bypass -File tools\check.ps1 -Schnell`. Answer
+per `AGENTS.md`.
