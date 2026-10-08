@@ -1,0 +1,36 @@
+Round 21 – red tests, onboarding import, release signing (sol, resumed). Rules `AGENTS.md`. Scope:
+`app/` (+ engine only if needed, with tests). A parallel astra round writes only `site/`, `store/`.
+
+1. **Fix the 6 red tests from Claude's full Robolectric run** (find the real cause each, fix code or
+   test, whichever is wrong):
+   - `HistoryScreenTest.barTapOpensSheet` + `HistoryScreenshotTest.sheet_enLight`: after tapping a
+     bar no "Cycle details" node / no dialog exists (sheet never opens in Robolectric or the tap
+     target isn't the bar).
+   - `OnboardingScreenTest.dragAcrossMonths`: expected 6 marked days but was 1 (long-press drag
+     gesture in the test or the picker logic).
+   - `DayEntrySettingsScreenshotTest.addItem_enLight` and `SituationScreenshotTest.pillRhythm_deLight`:
+     still `AppNotIdleException` ("Compose did not get idle … infinite composition loop") – look for
+     a real recomposition loop (state written during composition, e.g. in the dialog / text field /
+     pickers) before blaming animations; fix the cause.
+   - `SituationScreenshotTest.methodPicker_enLight`: "found 2 nodes containing 'None'" – make the
+     test select the method sheet's node specifically (or give nodes test tags).
+2. **Onboarding "Import from another app"**: on the past-periods step add a secondary action
+   "Import from another app" (+ same entry later in Settings → Backup & restore → "Import"). v1.0
+   sources: (a) FreePeriod. backup file (existing restore flow), (b) **CSV import** with preview:
+   accepts our own CSV export (periods file) and generic CSVs with either start/end date columns or
+   one row per bleeding day (auto-detect date column + ISO/`dd.MM.yyyy`/`MM/dd/yyyy` formats with
+   an explicit format choice if ambiguous); consecutive bleeding days → periods; preview shows
+   "N periods from DATE to DATE" before importing via `addPeriods` (skipped overlaps reported).
+   Show "Clue and Flo exports coming soon" as a small note (owner is collecting example files;
+   do not guess their formats). Pure parsing in `:engine` (`import/CsvImport.kt`) with tests:
+   ISO start/end, per-day rows, German date format, ambiguous format detection, empty/garbage file.
+3. **Release signing**: `app/build.gradle.kts` reads an optional external properties file
+   (`-Pfreeperiod.signing=<path>` or env `FREEPERIOD_SIGNING_PROPERTIES`) with storeFile,
+   storePassword, keyAlias, keyPassword; files must be outside the repo (fail clearly otherwise);
+   never loaded for lint/unit tests (only when a release bundle/assemble task is requested);
+   `bundleRelease` without the property fails with a clear message, while `assembleRelease` for
+   the gate keeps working unsigned. versionCode 1, versionName "1.0.0". Do not create keys.
+4. Tests listed above + screenshot tests `OnboardingScreenshotTest.import_enLight`,
+   `ImportScreenshotTest.preview_enLight`.
+
+Verify `tools\check.ps1 -Schnell` GREEN. Answer per AGENTS.md incl. net lines.

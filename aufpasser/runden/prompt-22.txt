@@ -1,0 +1,38 @@
+Round 22 – release copy and assets (astra, resumed). Scope fence: create/edit ONLY `site/` and
+`store/`. A parallel sol round works in `app/`.
+
+Facts: app "FreePeriod." (package org.freeperiod.app), free, no ads, no subscription, no account,
+**no INTERNET permission**, data only on the phone (Room DB), optional app lock, optional encrypted
+backup files and CSV export/import that the user saves/opens via the system file picker (a cloud
+folder chosen there uploads through that app), notifications only for reminders the user sets, no
+analytics/crash SDKs (Google Play may show its own crash statistics), open source GPL-3.0 (repo
+link placeholder `https://github.com/OWNER/freeperiod`), developer = the owner's Google Play
+organisation account (name placeholder `DEVELOPER_NAME`), contact e-mail placeholder
+`CONTACT_EMAIL`, target audience 13+, EU (GDPR). No fertile-window feature. Not a medical device;
+general wording: "FreePeriod. records what you enter and shows calendar estimates. It does not
+diagnose conditions or recommend treatment."
+
+Deliverables:
+1. `site/index.html` (tiny landing page: name, one-line promise, Play badge placeholder link,
+   source link, privacy link; our palette + fonts via Google Fonts link is fine for the website),
+   `site/privacy/index.html` (EN) and `site/privacy/de/index.html` (DE): complete, plain-language
+   privacy policy covering: controller/contact, what data exists (only what the user enters, stored
+   locally), no collection/transfer by the developer, no internet permission, backups/exports under
+   user control, app lock, notifications, Play crash stats by Google, children (13+), deletion
+   (Delete all data / uninstall), rights under GDPR (incl. that the developer holds no data),
+   changes, date "Effective: 2026-10-08". Same visual style as the landing page. `site/.nojekyll`.
+2. `store/listing-en.md` and `store/listing-de.md`: title "FreePeriod. – Period Tracker" (≤30),
+   short description (≤80, no "free"/"best"/"#1" in title; short description may say "No ads. No
+   subscription."), full description (≤4000; benefits, features as of v1.0, privacy, honest
+   limits: estimates, not for contraception), release notes for 1.0.0, ASO keywords naturally.
+3. `store/data-safety.md`: proposed Play Data safety answers (no data collected/shared; data
+   processed on device only; encrypted in transit: not applicable; deletion: in app) with
+   reasoning, plus Health apps declaration notes (menstrual tracking feature), content rating
+   questionnaire hints, target audience 13+ notes.
+4. `store/feature-graphic.html` (1024×500 board) and `store/screenshots.html` (a board laying out
+   6 phone screenshots with short captions EN; reference images from
+   `../app/src/test/screenshots/...` paths: today/regular_enLight.png, today/ongoingDay3_enLight.png,
+   day/filled_enLight.png, history/chart_enLight.png, settings/main_enLight.png (or situation),
+   onboarding/pastPeriods_enLight.png, plus a DE variant board `screenshots-de.html` with the DE
+   images where they exist). Claude renders them to PNG.
+Answer: file list + open placeholders.
