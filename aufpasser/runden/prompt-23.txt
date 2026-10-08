@@ -1,0 +1,49 @@
+Round 23 – "higher chance of pregnancy" days + medical disclaimer (sol, fresh session). Rules: `AGENTS.md`.
+Scope: `engine/` and `app/` (no `site/`, `store/`, `docs/`). Source of truth for this round: spec
+`docs/superpowers/specs/2026-10-08-freeperiod-v1-scope-2.md` §12 (read it first; it supersedes §11).
+
+Context: the owner decided to ship estimated days with a higher chance of pregnancy in v1.0, ON by
+default, with a prominent "not a medical device" disclaimer. Engine code already exists
+(`engine/.../Fertility.kt` `fertileWindow()`, `Situation.fertileWindowEnabled`,
+`fertileWindowAllowed()`, DB column `situation.fertileWindowEnabled`), but there is no UI. Claude
+already changed (do not undo): day entry sheet has no swipe-to-dismiss, typography uses
+`Hyphens.Auto`, DE `mood_low` = "Mäßig", launcher icon = coral dot.
+
+1. **Default on.** `Situation.fertileWindowEnabled` defaults to `true` (new installs, onboarding,
+   "delete all data" reset). Backups/CSV without the field restore as `true`. Keep the existing
+   allowed-check (phase REGULAR/TTC/PERIMENOPAUSE, method NONE/IUD_COPPER/CONDOM/OTHER, statistical
+   range only – nothing for "varies a lot", paused, pill modes, menopause, pregnancy, postpartum).
+   Window rule (replace the current centre−19…centre−13): estimated ovulation = next period start
+   − 14 days; the window is the 5 days before plus the day of estimated ovulation, taken over the
+   whole predicted range: `(earliest − 19) .. (latest − 14)`. Document it in KDoc, test it
+   (single-day range → 6 days; 3-day range → 8 days).
+2. **Wording (EN/DE, exact):** label "Higher chance of pregnancy" / "Erhöhte Chance auf
+   Schwangerschaft"; always with "calendar estimate" / "Kalenderschätzung". Never "fertile",
+   "ovulation", "safe days", "Eisprung", "fruchtbar", "sichere Tage" in user-visible text.
+3. **Today:** calendar days in the window get a distinct, calm marker (not the period fill; e.g. a
+   soft accent tint or small marker that works in all 6 accents, light + dark, and with the
+   predicted-period dotted ring) + a legend entry. Today card: one quiet line when the window is
+   upcoming or current, e.g. "Higher chance of pregnancy: Apr 9–14 · calendar estimate" with an
+   info button that opens the disclaimer (bottom sheet or dialog). Accessibility: day content
+   descriptions mention it ("…, higher chance of pregnancy, calendar estimate").
+4. **Setting:** Settings › My situation: switch "Show days with a higher chance of pregnancy"
+   (+ one-line explanation), only visible when the situation allows it; persisted in the situation.
+5. **Disclaimer (EN/DE strings, one shared composable):** heading "Not a medical device" / "Kein
+   Medizinprodukt". Body: FreePeriod. is not a medical device. It is not a method of contraception,
+   not a tool to help you get pregnant, and gives no medical advice, diagnosis or treatment. All
+   dates are calendar estimates from your own entries and can be wrong; they are not reliable.
+   Talk to a doctor or pharmacist about contraception, pregnancy or health questions. (DE: warm,
+   short, "du".) Shown: (a) onboarding welcome step as a short visible note (not hidden behind a
+   link), (b) Settings › Privacy & info as its own section at the top, (c) from the Today info
+   button. Replace/merge the existing `app_estimates` string so there is one consistent text.
+6. **No notifications** for these days; no reminder presets for them.
+7. Tests (TDD): engine window maths + allowed matrix + default true; ViewModel/Today state shows the
+   window only when allowed and enabled; backup/CSV default. Screenshot tests (Claude records):
+   `today/fertile_enLight`, `today/fertile_deDark`, `today/disclaimer_enLight`,
+   `settings/situationFertile_enLight`, update existing onboarding welcome screenshot names as needed.
+
+Non-goals: no other UI redesign (a separate design round follows), no new dependencies, no ovulation
+tests logic changes, no history chart changes.
+
+Verify with `powershell -NoProfile -ExecutionPolicy Bypass -File tools\check.ps1 -Schnell`. Answer
+per `AGENTS.md` (+ net lines, the window rule you chose, every new string key).

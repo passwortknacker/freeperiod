@@ -138,3 +138,22 @@ medical device. Because the owner does not want legally grey territory, the **fe
 not shipped in v1.0** (engine code stays, no UI, no setting). "Trying to conceive" remains a
 logging view only (ovulation tests, no estimates). Period predictions stay, framed as calendar
 estimates from the user's own entries. Revisit only with proper legal advice.
+
+## 12. Owner decision 2026-10-08 (evening) – "higher chance of pregnancy" days in v1.0, default on
+
+Supersedes §11. Claude advised against it (EU MDR Art. 2(1) lists software intended for the control or
+support of conception as a medical device; a disclaimer does not change an evident purpose; Clue is CE
+Class I for the same feature; main practical risk in Germany: competitor warning letters). The owner
+decided, knowing this: ship it in v1.0, **on by default**, with a prominent disclaimer. Implementation
+keeps the risk as low as possible:
+
+- Wording: "Days with a higher chance of pregnancy" / "Tage mit erhöhter Chance auf eine
+  Schwangerschaft" – always marked as a **calendar estimate**. Never "fertile window", "ovulation day",
+  "safe days" or anything that suggests contraception or conception planning.
+- Shown only for statistical predictions in compatible situations (`fertileWindowAllowed()`); hidden
+  for pregnancy, postpartum, menopause, hormonal methods, "varies a lot" and when predictions are paused.
+- One setting to switch it off (Settings › My situation). No push notifications for these days.
+- Disclaimer ("FreePeriod. is not a medical device …": no contraception, no help to conceive, no
+  medical advice, no diagnosis, no treatment; all estimates are calendar estimates from the user's
+  own entries without any reliability) appears: once in onboarding (welcome step), in Settings ›
+  Privacy & info, next to the days (info tap), in the store listing and on the website.
