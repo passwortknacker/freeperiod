@@ -1,0 +1,58 @@
+Round 17 – "situation, reminders, customization" (sol, resumed): plan part 2, Tasks C2 + C3 with the
+binding decisions (3, 4, 5, 7, 11, 12, 14) and spec rev 2 §3, §4, §5, §11 (fertile window is NOT in
+v1.0: no setting, no UI).
+
+Rules `AGENTS.md`. Scope: `app/` (data, reminders, ui/settings, ui/day, ui/today wiring of the real
+`Situation`, nav), engine only if strictly needed (with tests). Use the existing design-system
+components in `ui/components/` and tokens (`LocalDaylight`) – no hard-coded colours/fonts. The quick
+check no longer packages APKs (no debug-key problems any more).
+
+State: rounds 15 (Today redesign, astra) and 16 (your storage v2) are merged; Claude wired
+`onUndoEnd` in AppNav. Open point from you: CSV export must pass `customCategories` from its UI
+call site – do it now.
+
+Requirements:
+0. **Fix `MigrationTest.v1ToV2KeepsData`** (currently red). Claude registered `app/schemas` as
+   debug assets (build.gradle.kts) so schemas are found now, but Room 2.8's MigrationTestHelper
+   under Robolectric fails with "This driver is configured to open a database named
+   'migration-test' but '<absolute path>' was requested". Replace the helper approach with a
+   simpler one: create the v1 database directly with `SQLiteDatabase` from the `createSql`
+   statements of `1.json` (+ room_master_table identity hash, user_version 1), insert the same
+   fixture rows, then open it with `Room.databaseBuilder(...).addMigrations(MIGRATION_1_2)` and
+   assert as today. Remove the custom AssetManager/Instrumentation hack. A parallel astra round
+   polishes `ui/today/` – do not edit those files except the single situation wiring line(s) needed
+   for item 1.
+1. **My situation** (Settings → "My situation"): life phase picker (6 phases, copy from decision
+   11), method picker (11 methods), for combined pill: rhythm (21+7, 24+4, continuous, custom
+   active/break with validated ranges) + pack start date. Changing phase/method never deletes data.
+   Today uses the stored `Situation` (replace the `Situation()` default from round 15) so the card
+   shows ScheduledBreak/ContinuousPill/NeedsPillRhythm/Menopause/Paused correctly; period reminder
+   suppressed per decision 3. Mini-pill: basis line "Cycles may be irregular with this method."
+2. **Reminders** (Settings → "Reminders"): list of all reminders (period due + daily log + method
+   + custom) with on/off, add/edit/delete; editor: title (custom only), recurrence (daily, every N
+   days, weekly weekday, monthly day, every N months from anchor, once on date), time; disclosure
+   "Notifications may arrive later than the time you choose." Method presets: when the user picks a
+   method, offer (snackbar/dialog, never automatic) the matching reminder: pill daily, ring/patch/
+   injection every N days/weeks, IUD/implant once on a date the user enters. Missed-pill: no
+   advice; nowhere in the app. Scheduler: one unique one-time work per reminder at its next
+   occurrence (`Recurrence.nextDate`, decision 7), re-enqueued after firing, on boot/time/zone
+   change and after restore; notification permission requested when the first reminder is enabled
+   (the permission crash is fixed – fragment 1.8.9).
+3. **Day entry customization** (Settings → "Day entry"): show/hide and reorder categories
+   (drag handle or up/down buttons – accessible), show/hide built-in items, add own item to any
+   multi-select category (name + icon from a bundled set of ~24 line icons with stable keys),
+   add/rename/archive own categories. Day entry renders accordingly; phase-specific built-ins
+   (perimenopause/menopause: hot flushes, night sweats, brain fog, joint pain; TTC: ovulation test
+   negative/positive) appear automatically for that phase unless the user hid them (decision 12
+   defaults: Regular shows a short symptom set + "More").
+4. Remove the old reminder toggles from the main Settings list (they move into "Reminders").
+5. Tests: preset offered per method, `reminderReschedulesAfterFiring`, `everyNMonthsNoDrift`
+   scheduling, `phaseChangeKeepsData`, `todayUsesStoredSituation`, `noteAutosavesAndPreviews`,
+   `reorderPersists`, `customCategoryShowsInEntry`, `hiddenBuiltInStaysInHistory`,
+   `csvIncludesCustomItems`. Screenshot tests (w360dp-h800dp-xxhdpi, clock 2026-04-12):
+   `SituationScreenshotTest.situation_enLight`, `.pillRhythm_deLight`,
+   `RemindersScreenshotTest.list_enLight`, `.editor_enLight`,
+   `DayEntrySettingsScreenshotTest.main_enLight`, `.addItem_enLight`,
+   `DayEntryScreenshotTest.menopause_enLight`.
+
+Verify `tools\check.ps1 -Schnell` GREEN. Answer per AGENTS.md incl. net lines.

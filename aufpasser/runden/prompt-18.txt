@@ -1,0 +1,22 @@
+Round 18 – Today polish (astra, resumed). Scope: `ui/today/`, `ui/components/` (FpButton only if
+needed), `res/values*/strings.xml`, Today tests. A parallel sol round works in data/, settings, day,
+reminders – do not touch those.
+
+Claude merged round 15 (wired `onUndoEnd` in AppNav) and recorded your Today screenshots. Very
+close to draft 5 – great. Fix these (from Claude's review + owner's earlier notes):
+1. German `regular_deDark`: the primary button text "Periode begonnen" wraps to two lines and is
+   left-aligned. Buttons must keep one line, centred: give the primary action the space it needs
+   (e.g. weights by content, or stack primary above secondary when either label doesn't fit), never
+   wrap or ellipsize. Check DE + fontScale 1.5.
+2. Light mode: calendar period circles and the primary button have dark outlines (draft 5 and dark
+   mode have none). Light should be borderless and soft like draft 5; keep only the today ring and
+   the dashed predicted outline. Ensure ≥3:1 for essential graphics via fill, not a dark stroke.
+3. The coloured full stop after the numeral: a tiny bit closer to the digit (owner request), still
+   clearly separate and baseline-aligned.
+4. `ongoingDay3_enLight`: the today ring overlaps the short recorded/expected segments and looks
+   cramped. Give the timeline a minimum visual length for the period part (e.g. when the period
+   segment would be shorter than ~28 dp, draw the axis non-linearly so the first days get at least
+   that length; keep the order and labels honest) or place the today marker on top with a small
+   halo so the coloured segment stays visible on both sides. Same visual identity as the regular
+   state.
+Re-render the same screenshot set; list changed names. Verify `tools\check.ps1 -Schnell` GREEN.
