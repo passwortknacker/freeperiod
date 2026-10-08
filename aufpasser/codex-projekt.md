@@ -48,6 +48,9 @@ Fixed rules for Codex live in `AGENTS.md` (created in M0; do not repeat them in 
 | 21 | resume of 13 (sol) | 01a118a0-a60d-… | Fixes, import in onboarding + CSV preview, release signing (24.5 M). Claude fixed 6 red tests (drag bug, Robolectric dialog text fields, Room executors); commit 5523371 |
 | 22 | resume of 14 (astra) | 01a118a0-e435-… | Website, privacy policies, store listing + artwork (22.1 M); commit 9ff1e9d |
 
+| 23 | gpt-6.1-sol/high fresh | (see runde-23.jsonl) | Higher-chance-of-pregnancy days (default on, spec §12) + medical disclaimer, +303 lines. Claude: fixed situation-switch persistence bug, poisoned Gradle build cache (caching off), readability pass, period block, feedback mail, chip grid |
+| 24 | – cancelled | – | Design polish done by Claude instead (Codex quota 39 % on day 2; owner: Codex only for what it does better) |
+
 **Decision 2026-10-08:** both threads are too long (resumes cost 2–4 % weekly quota each). Next rounds start
 fresh with a short handover. Codex quota must last until the reset (Wed 14.10. 10:15); Claude takes small
 and medium work, Codex only big rounds. `~/.codex/config.toml`: `model_auto_compact_token_limit = 150000`.
