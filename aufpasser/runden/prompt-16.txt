@@ -1,0 +1,38 @@
+Round 16 – "storage v2" (sol, resumed): plan part 2, Task C1 with the binding decisions 5, 6, 15.
+
+Rules `AGENTS.md`. Scope fence: `app/src/main/java/org/freeperiod/app/data/`, `backup/`,
+`AppContainer.kt`, `app/schemas/`, `reminders/` (only to read reminders from the new table),
+`engine/` only if strictly needed (with tests), and tests under `app/src/test/.../data/`,
+`.../backup/`, `.../reminders/`. Do not touch `ui/` (astra restyles Today in parallel; Gradle may
+be busy – retry/wait).
+
+State: your engine round 13 is merged and green (Claude fixed a BOM in the version catalog that
+broke Gradle's generated accessors – not your code).
+
+Requirements:
+1. Room v2 per decision 5: `TagEntity` += categoryId, iconKey; `CustomCategoryEntity`,
+   `UiOverrideEntity`, `SituationEntity(id=0)`, `ReminderEntity` (+ lastDeliveredDate),
+   `HintDismissalEntity`; `DayLogEntity` += ovulationTest; new symptom names stored as before.
+   `MIGRATION_1_2` registered in `AppContainer`; exported schema 2.json.
+2. Repository: flows + writes for situation, custom categories, items (tags with category/icon),
+   overrides, reminders, hint dismissals; `addPeriods(list)` (decision 8: one transaction, skip
+   blocks that overlap existing periods, return skipped); snapshot/replaceAll for BackupData v2
+   (restore resets delivery identities, reminders keep enabled flag; after the transaction the
+   scheduler reconciles).
+3. One-time migration of DataStore reminder prefs into `ReminderEntity` rows (flag
+   `remindersMigrated`), idempotent; existing reminder scheduling reads from the table (keep
+   behaviour identical for the period-due and daily reminders).
+4. Tests: `MigrationTest.v1ToV2KeepsData` (Room MigrationTestHelper with the exported 1.json:
+   periods incl. cycleUse, logs with NONE vs null, tags + links, notes > 2000 chars),
+   `addPeriodsSkipsOverlaps`, `snapshotReplaceRoundTripV2`, `restoreResetsDeliveryIds`,
+   `reminderPrefsMigrateOnce`, `hiddenItemsKeptInHistory`.
+
+Verify `tools\check.ps1 -Schnell` GREEN. Answer per AGENTS.md incl. net lines.
+
+5. Currently failing tests (Claude's full run after rounds 13+14) – fix them within your scope:
+   `RepositoryTest.snapshotReplaceRoundTrip`, `RestoreTest.restoreReplacesDataAndSettings`,
+   `SettingsViewModelTest.deleteAllDataClearsEverything` (all hit `Repository.validateReplacement`
+   still requiring schemaVersion 1) and `SettingsStoreTest.accentPersists` (JobCancellationException
+   at SettingsStoreTest.kt:50 – a test-scope/collection problem in the new accent test; fix the test
+   or the store, whichever is the real cause). `SettingsStoreTest`/`SettingsViewModelTest` are in
+   scope for this item.

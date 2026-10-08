@@ -1,0 +1,41 @@
+Round 15 – "Today" (astra, resumed): plan part 2, Task B2.
+
+Rules `AGENTS.md`. Scope fence: `app/src/main/java/org/freeperiod/app/ui/today/`,
+`ui/components/` (additions only), `res/` (strings, drawables), and Today tests under
+`app/src/test/.../ui/today/`. Do not touch `engine/`, `data/`, other screens. A parallel sol round
+works in `data/` (Room v2); Gradle may be busy – retry/wait.
+
+State: round 14 (your design system) and round 13 (engine v2: `cycleTimeline`, new
+`PredictionState`s ScheduledBreak/ContinuousPill/NeedsPillRhythm/Menopause, `RangePassed.earliest`,
+`fertileWindow(state, situation)`, `periodEndForTapToday`) are merged and green after Claude fixed
+a BOM in the version catalog and switched `MainActivity` to `accent`.
+
+Implement Today per spec rev 2 §2 + plan part-2 decisions 1–3, 10–12 and draft 5:
+1. Card: label ("Cycle day" / "Period · day N" / "Pack day N"), numeral + coloured full stop with
+   the small gap of draft 1, `CycleTimelineView(CycleTimeline)` to the right (Canvas, accessible
+   description like "Cycle from 10 April. Period recorded 10 to 12 April, expected until 14 April.
+   Today 12 April. Next period likely 7 to 9 May."), stacked below the numeral when fontScale ≥ 1.3.
+   Prediction sentence + basis; states incl. ScheduledBreak ("Scheduled break", "Geplante Pause"),
+   ContinuousPill, NeedsPillRhythm, Menopause ("N full months since your last recorded period
+   ended"), Paused, NoData, NeedMoreData, Varies, RangePassed.
+2. Actions: "Period started" / "Period ended" (uses `periodEndForTapToday`; snackbar "Saved:
+   last bleeding day 11 April" with Undo + Edit → opens day entry) / "Log today".
+3. Calendar per draft 5 (period filled, predicted dashed, today ring, entry dot, legend; NO fertile window – removed from v1.0 for regulatory reasons, see spec rev 2 §11). For now pass `Situation()` default; the
+   real situation comes from storage in round C2 (keep a single parameter so wiring is trivial).
+4. Motion: period start fills the day ≈160 ms + one light haptic (`HapticFeedbackType.
+   LongPress` or `Confirm` where available); month change slide+fade ≈180 ms; respect animator
+   scale.
+5. Screenshot tests (w360dp-h800dp-xxhdpi, clock 2026-04-12, fixtures generated from one period
+   list so numbers are consistent): `regular_enLight`, `regular_deDark`, `regular_enLarge`,
+   `ongoingDay3_enLight`, `rangePassed_enLight`, `scheduledBreak_enLight`, `menopause_enLight`,
+   `empty_enLight`, `calendarPredicted_enLight`; delete obsolete Today
+   screenshot tests that no longer match. Unit test for the timeline description text.
+
+Verify `tools\check.ps1 -Schnell` GREEN. Answer per AGENTS.md.
+
+6. Polish from Claude's screenshot review of round 14 (Settings/Day entry are yours too for this
+   item only): every Settings row currently uses the same sliders icon – give each row its own
+   meaningful line icon (appearance, cycle length, language, backup, CSV export, privacy, about,
+   delete data); remove the doubled divider/empty gap above "Backup & restore"; in Day entry add a
+   little more space above each section heading (Mood/Flow/Pain/Symptoms) so the groups breathe,
+   matching draft 5.

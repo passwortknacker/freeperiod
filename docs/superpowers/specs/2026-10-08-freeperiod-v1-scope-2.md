@@ -128,3 +128,13 @@ labelled estimates; reminders only for what the user configured.
 
 - Package `org.freeperiod.app` (final). Target audience 13+. Privacy policy on GitHub Pages
   (domain later). Support contact: a dedicated Gmail address (owner provides).
+
+## 11. Change 2026-10-08 (regulatory check) – fertile window removed from v1.0
+
+A competitor ("Period Tracker and Calendar", SimpleInnovation) markets itself as a **CE Class I
+medical device** for "predictions for upcoming periods and estimated fertile windows", and a Swiss
+court ruled that software estimating fertile phases for conception/contraception qualifies as a
+medical device. Because the owner does not want legally grey territory, the **fertile window is
+not shipped in v1.0** (engine code stays, no UI, no setting). "Trying to conceive" remains a
+logging view only (ovulation tests, no estimates). Period predictions stay, framed as calendar
+estimates from the user's own entries. Revisit only with proper legal advice.

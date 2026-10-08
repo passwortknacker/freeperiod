@@ -76,7 +76,7 @@ on top of the finished part 1 (Tasks 0–12, commits up to `e5e9e10`).
     (user ticks it when needed); onboarding progress (all entered answers) survives process death
     and leaving the app (`rememberSaveable`/SavedStateHandle) – a crash or a trip to system
     settings must never lose entries. Test `onboardingStateSurvivesRecreation` (C4).
-14. **Regulatory:** Claude re-checks current EU MDR/Play wording for the fertile window before C2.
+14. **Regulatory (done 2026-10-08):** fertile window removed from v1.0 (spec rev 2 §11): no UI, no setting, no calendar band; engine function stays unused.
 
 ## Global constraints (additions to part 1)
 
