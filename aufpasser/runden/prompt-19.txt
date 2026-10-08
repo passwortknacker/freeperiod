@@ -1,0 +1,48 @@
+Round 19 – "onboarding + history" (sol, resumed): plan part 2, Task C4 with binding decisions 8, 9,
+10, 12, 15 and spec rev 2 §7, §8 (no fertile window anywhere).
+
+Rules `AGENTS.md`. Scope: `ui/onboarding/`, `ui/history/`, `ui/nav/` (routing only), `data/`
+(only if a repository method is missing), engine only if strictly needed (with tests), resources,
+tests. Use the design-system components/tokens (draft 5 look) – a later astra round polishes
+visuals, so keep styling central and clean.
+
+State: rounds 17 (yours) and 18 (astra Today polish) merged; check script now uses a per-run log
+and a sandbox Android user dir.
+
+Requirements:
+0. Fix first (from Claude's full run after round 17): `DayEntrySettingsScreenshotTest.addItem_enLight`
+   and `SituationScreenshotTest.pillRhythm_deLight` fail with `AppNotIdleException` (an endless
+   animation such as a blinking text-field cursor or an open dialog keeps Compose busy). Make the
+   tests deterministic (e.g. `composeRule.mainClock.autoAdvance = false` + `advanceTimeBy`, or
+   capture before focusing). Bug: in the Reminders list the period-due reminder summary shows
+   "Daily · 20:00" – it must show "N days before your period · 20:00" (EN/DE). The MigrationTest is
+   fixed by Claude (optJSONArray for missing indices). A parallel astra round restyles
+   `ui/settings/` presentation – keep your fix for the summary in the view model / formatter, not
+   in composables, if possible.
+1. **Onboarding v2** (all steps skippable, progress persisted across process death and leaving the
+   app – decision 15): (1) Welcome + 3 promises; (2) life phase (decision 11 copy); (3) method
+   (optional; pill rhythm + pack start when combined pill); (4) **past periods picker**: vertically
+   scrolling calendar of the last 6 months (oldest at top, current month at bottom, initially
+   scrolled to the current month); drag across days to mark a period, tap to toggle single days;
+   tap-start-then-tap-end alternative for accessibility; contiguous days form one period; a block
+   that includes today asks "Still ongoing?" (yes → end null); commit via `addPeriods` (skipped
+   overlaps reported); (5) usual cycle length (15–90 or "I don't know", NOT preselected; hidden when
+   ≥1 eligible completed cycle exists from the picked periods); (6) reminders opt-in (period-due +
+   daily log; method preset offer if a method was chosen). Finish → onboardingDone.
+2. **History v2**: averages panel; horizontally scrollable vertical bar chart of all completed
+   cycles (latest at the right, initially scrolled to the end, soft fade at the left edge when more
+   exists, values above bars, month/day labels below, excluded cycles hatched); tap a bar → bottom
+   sheet with dates, cycle length, period length, reason if auto-excluded and "Use for
+   predictions" switch; below the chart only the excluded cycles inside the visible range (compact
+   row + switch); long-cycle hint per decision 9 (dismiss persists); symptom frequency; menopause
+   phase: monthly symptom view + decision-10 counter instead of averages. TalkBack: each bar is a
+   button with a full description; the sheet is reachable without drag.
+3. Tests: `onboardingStateSurvivesRecreation`, `dragAcrossMonths`, `tapToggleSplitsBlock`,
+   `stillOngoingCreatesOpenPeriod`, `overlapMergesNotDuplicates` (skipped + reported),
+   `cycleLengthHiddenWithEligibleCycle`, `barTapOpensSheet`, `excludedListMatchesVisibleRange`,
+   `longCycleHintDismissPersists`. Screenshot tests (w360dp-h800dp-xxhdpi, clock 2026-04-12):
+   Onboarding `welcome_enLight`, `phase_enLight`, `pastPeriods_enLight`, `pastPeriods_deDark`,
+   `reminders_enLight`; History `chart_enLight`, `chart_deDark`, `sheet_enLight`, `empty_enLight`,
+   `menopause_enLight`. Delete obsolete onboarding/history screenshot tests.
+
+Verify `tools\check.ps1 -Schnell` GREEN. Answer per AGENTS.md incl. net lines.

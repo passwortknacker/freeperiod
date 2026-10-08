@@ -1,0 +1,26 @@
+Round 20 – visual polish of the new settings screens + launcher icon (astra, resumed). Plan part 2,
+Round D (first half).
+
+Scope: `ui/settings/` (presentation only – keep view models and behaviour), `ui/components/`,
+`res/` (drawables, mipmap, strings), screenshot tests for these screens. A parallel sol round works
+in `ui/onboarding/`, `ui/history/`, `data/` – do not touch those.
+
+Claude's review of sol's round 17 screens (functional, but not draft-5 quality):
+1. **My situation**: 17 full-width outlined boxes stacked = heavy and long. Redesign calmly:
+   life phase as a compact single-choice list (radio rows with a one-line description each, e.g.
+   "Pregnant – predictions pause, your diary continues"), method as a row that opens a bottom sheet
+   (or a compact list) with the 11 methods; pill rhythm section appears only for combined pill.
+   Fieldnote panels, our tokens, no checkmarks needed for radios (radio dot is fine).
+2. **Reminders list**: card content has no inner padding (text touches the left card edge, switch
+   sticks to the right edge); "Delete reminder" is long – use an overflow/trailing icon button with
+   a content description, or "Delete" text; group "Show period details in notifications" as a
+   clearly separated option. Editor: same panel style, pickers tidy.
+3. **Day entry settings** and **Appearance (accent picker)**: bring to the same quality.
+4. **Launcher icon**: adaptive icon (foreground + background + monochrome) per spec: warm cream
+   background, a heavy rounded "F" in charcoal and a coral full stop (accent coral), legible at
+   48 dp, no text other than the F; also a notification small icon (white silhouette). Original
+   vector paths only.
+Re-render: `SituationScreenshotTest`, `RemindersScreenshotTest`, `DayEntrySettingsScreenshotTest`,
+`AccentScreenshotTest.settingsAppearance_enLight`, `SettingsScreenshotTest` (+ a new
+`IconScreenshotTest.launcher_light/_dark` rendering the adaptive icon at 192 px on both themes if
+feasible). Verify `tools\check.ps1 -Schnell` GREEN; list screenshot names.
