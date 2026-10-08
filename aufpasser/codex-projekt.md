@@ -39,6 +39,18 @@ Fixed rules for Codex live in `AGENTS.md` (created in M0; do not repeat them in 
 | 12 | gpt-6-astra/high read-only | 01a1189b-8ee2-7d40-916d-6938f4702311 | Review spec rev 2 + plan part 2 → 14 binding decisions |
 | 13 | gpt-6.1-sol/high | 01a118a0-a60d-7e90-83bb-a61633d096de | Round A engine v2 (parallel to 14) |
 | 14 | gpt-6-astra/high | 01a118a0-e435-70d1-bd90-18c211b2f96e | Round B1 design system (all screens except Today) |
+| 15 | resume of 14 (astra) | 01a118a0-e435-… | Today v2 design (7.7 M input) |
+| 16 | resume of 13 (sol) | 01a118a0-a60d-… | Database v2, MIGRATION_1_2, backup schema 2 (8.9 M) |
+| 17 | resume of 13 (sol) | 01a118a0-a60d-… | My situation, reminder engine, day-entry customization (13.3 M) |
+| 18 | resume of 14 (astra) | 01a118a0-e435-… | Today polish (12.9 M) |
+| 19 | resume of 13 (sol) | 01a118a0-a60d-… | Onboarding v2 + history v2 (18.4 M); commit ef8af3c |
+| 20 | resume of 14 (astra) | 01a118a0-e435-… | Settings polish + launcher icon (19.6 M); commit ef8af3c |
+| 21 | resume of 13 (sol) | 01a118a0-a60d-… | Fixes, import in onboarding + CSV preview, release signing (24.5 M). Claude fixed 6 red tests (drag bug, Robolectric dialog text fields, Room executors); commit 5523371 |
+| 22 | resume of 14 (astra) | 01a118a0-e435-… | Website, privacy policies, store listing + artwork (22.1 M); commit 9ff1e9d |
+
+**Decision 2026-10-08:** both threads are too long (resumes cost 2–4 % weekly quota each). Next rounds start
+fresh with a short handover. Codex quota must last until the reset (Wed 14.10. 10:15); Claude takes small
+and medium work, Codex only big rounds. `~/.codex/config.toml`: `model_auto_compact_token_limit = 150000`.
 
 Device: Marvin's S22 Ultra via Wi-Fi debugging (`adb connect 192.168.178.21:<port>`; port changes, pairing already done for this laptop).
 

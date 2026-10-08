@@ -47,17 +47,19 @@ Suggested PNG names and selectors:
 | `#shot-settings` | `05-settings-en.png` | `05-settings-de.png` |
 | `#shot-setup` | `06-setup-en.png` | `06-setup-de.png` |
 
-## Screenshot inputs and one German fallback
+## Screenshot inputs
 
 | Panel | English reference | German board reference |
 |---|---|---|
 | Today | `today/regular_enLight.png` | `today/regular_deDark.png` |
-| Ongoing period | `today/ongoingDay3_enLight.png` | Same current English image, visibly labelled “App-Ansicht: Englisch”. |
+| Ongoing period | `today/ongoingDay3_enLight.png` | `today/ongoingDay3_deDark.png` |
 | Day entry | `day/filled_enLight.png` | `day/filled_deDark.png` |
 | History | `history/chart_enLight.png` | `history/chart_deDark.png` |
 | Settings | `settings/main_enLight.png` | `settings/main_deDark.png` |
 | Past periods | `onboarding/pastPeriods_enLight.png` | `onboarding/pastPeriods_deDark.png` |
 
-All references are relative to `../app/src/test/screenshots/`. The existing `today/ongoing_deDark.png` is a legacy screen, not the current ongoing-day-3 design, so it is deliberately not used. If Claude records a current German equivalent, replace the second panel's image and remove its English-language label. Other German panels use the available dark-mode references. Captions describe existing functions; no fertile-window image or claim is included.
+All references are relative to `../app/src/test/screenshots/`. German panels use the dark-mode references. Captions describe existing functions; no fertile-window image or claim is included.
 
 Re-recorded app references will automatically appear in the boards. Final artwork review should use the references from the release candidate, since another round is changing the app in parallel.
+
+Rendered PNGs (feature graphic and 2 × 6 screenshots) are in `png/` (`python tools/render-store.py`). Re-render after re-recording the app references.
