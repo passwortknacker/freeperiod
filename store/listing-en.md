@@ -12,35 +12,22 @@ Period calendar and symptom diary. No ads. No subscription. No account.
 
 Your cycle, your space.
 
-FreePeriod. is a period tracker, cycle calendar and daily diary for Android. Keep a record of what matters to you, without ads, a subscription or an account. The app is free and open source.
+FreePeriod. is a period calendar and daily diary in one. Free and open source, with no ads, no subscription and no account.
 
-A clear view of today
-• Record when your period starts and ends.
-• See recorded bleeding days, your cycle day and clearly labelled calendar estimates.
-• Optional, easy to switch off: days with a higher chance of pregnancy, shown as a plain calendar estimate.
-• Explore your cycle history and summaries, with estimates based on the entries available.
+• Log your period with a tap and see your cycle day at a glance.
+• Calendar estimates for your next two periods, based on your own entries.
+• Optional: days with a higher chance of pregnancy, shown as a plain calendar estimate.
+• Daily diary: mood, flow, pain, symptoms, discharge, tags and notes. Add your own categories and icons.
+• Cycle history with averages and logged symptoms.
+• Reminders for your period, a pill or anything personal.
+• Life phases: during pregnancy, after birth and in menopause the estimates pause and your diary stays.
+• Six accent colours, light and dark mode, English and German.
 
-A diary that fits your day
-• Log mood, flow, pain, symptoms, sex, discharge, tags and notes.
-• Choose what appears in your day entry. Hide or reorder categories and add your own items and categories.
-• Choose a life phase and, optionally, a method. Pregnancy and after-birth views pause period estimates while your diary stays available. Menopause tracking keeps your entries in view without period predictions.
-• Add an optional pill-pack rhythm or reminders for a method you already use.
-
-Reminders you choose
-Set reminders for logging, an estimated period, a pill, a method or something personal. Choose times and repeat schedules, and turn reminders off whenever you want. Notifications depend on Android settings and may not arrive at the exact time you choose.
-
-Privacy on your phone
-FreePeriod. has no INTERNET permission and no analytics or crash-reporting SDKs. Your entries are stored locally. The developer does not receive your diary. Google Play may provide its own platform crash statistics separately.
-
-Optional app lock adds device authentication. Save or open encrypted backup files and export or import CSV files through Android’s system file picker. You choose where files go. A cloud provider selected there may upload or download them through its own app. CSV files are readable text, not encrypted backups. Android can also transfer app data directly when you move to a supported replacement phone.
-
-You can delete local app data in Settings or by uninstalling. Exported files and other copies stay where you saved them until you delete them there.
-
-Make it comfortable
-Choose from six accent colours, light or dark appearance, and English or German. Add past periods during setup, or skip ahead and begin with today.
+Private by design
+FreePeriod. has no internet permission and no analytics. Your entries stay on your phone. Optional app lock, encrypted backup files and CSV export – you decide where files go.
 
 Honest limits
-FreePeriod. is not a medical device. It is not a method of contraception and not a tool to help you get pregnant. It gives no medical advice, diagnosis or treatment. All dates, including days with a higher chance of pregnancy, are calendar estimates from your own entries. They can be wrong and are not reliable. Talk to a doctor or pharmacist about contraception, pregnancy or health questions.
+FreePeriod. is not a medical device, not a method of contraception and not a tool to help you get pregnant. All dates are estimates from your own entries and can be wrong. For questions about contraception, pregnancy or your health, talk to a doctor or pharmacist.
 
 For ages 13 and up.
 Source code (GPL-3.0): https://github.com/pavoras/freeperiod
@@ -62,7 +49,7 @@ Welcome to FreePeriod. 1.0.0.
 |---|---:|---:|
 | Title | 28 | 30 |
 | Short description | 71 | 80 |
-| Full description | 2898 | 4000 |
+| Full description | 1397 | 4000 |
 | Release notes | 313 | 500 |
 
 Copy only the field content above, not the Markdown headings or this table. Counts use Unicode characters and LF line breaks, excluding the outer blank lines. Replace pavoras and support@jaysay.it before publication and recount after editing. Both locales use the requested title; no price or ranking claim is added to it.

@@ -12,35 +12,22 @@ Zykluskalender und Symptomtagebuch. Ohne Werbung, Abo oder Konto.
 
 Dein Zyklus, dein Raum.
 
-FreePeriod. ist dein Periodentracker, Zykluskalender und tägliches Tagebuch für Android. Halte fest, was dir wichtig ist, ohne Werbung, Abo oder Konto. Die App ist kostenlos und Open Source.
+FreePeriod. ist Periodenkalender und Tagebuch in einem. Kostenlos und Open Source, ohne Werbung, Abo oder Konto.
 
-Heute auf einen Blick
-• Trage Beginn und Ende deiner Periode ein.
-• Sieh aufgezeichnete Blutungstage, deinen Zyklustag und klar gekennzeichnete Kalenderschätzungen.
-• Auf Wunsch abschaltbar: Tage mit erhöhter Chance auf Schwangerschaft, als reine Kalenderschätzung.
-• Schau dir deinen Zyklusverlauf und Zusammenfassungen an. Schätzungen beruhen auf den vorhandenen Einträgen.
+• Trage deine Periode mit einem Tipp ein und sieh deinen Zyklustag auf einen Blick.
+• Kalenderschätzungen für deine nächsten zwei Perioden, aus deinen eigenen Einträgen.
+• Optional: Tage mit erhöhter Chance auf Schwangerschaft, als reine Kalenderschätzung.
+• Tagebuch: Stimmung, Blutung, Schmerzen, Symptome, Ausfluss, Tags und Notizen. Ergänze eigene Kategorien und Symbole.
+• Verlauf mit Durchschnittswerten und eingetragenen Symptomen.
+• Erinnerungen für deine Periode, eine Pille oder etwas Persönliches.
+• Lebensphasen: In der Schwangerschaft, nach der Geburt und in der Menopause pausieren die Schätzungen, dein Tagebuch bleibt.
+• Sechs Akzentfarben, hell und dunkel, Deutsch und Englisch.
 
-Ein Tagebuch für deinen Alltag
-• Erfasse Stimmung, Blutungsstärke, Schmerzen, Beschwerden, Sex, Ausfluss, Tags und Notizen.
-• Entscheide, was im Tageseintrag erscheint. Blende Kategorien aus, ändere ihre Reihenfolge und ergänze eigene Einträge und Kategorien.
-• Wähle deine Lebensphase und optional eine Methode. In Schwangerschaft und nach der Geburt pausieren die Periodenschätzungen; dein Tagebuch bleibt verfügbar. In der Menopause bleiben deine Einträge im Blick, ohne Periodenprognosen.
-• Ergänze bei Bedarf einen Pillenrhythmus oder Erinnerungen für eine Methode, die du bereits nutzt.
-
-Erinnerungen nach deinem Wunsch
-Richte Erinnerungen für Einträge, eine geschätzte Periode, eine Pille, eine Methode oder etwas Persönliches ein. Wähle Uhrzeiten und Wiederholungen und schalte Erinnerungen jederzeit aus. Die Zustellung hängt von Android ab und kann später als zur gewählten Uhrzeit erfolgen.
-
-Deine Daten auf deinem Handy
-FreePeriod. hat keine INTERNET-Berechtigung und keine SDKs für Nutzungsanalysen oder Absturzberichte. Deine Einträge werden lokal gespeichert. Dein Tagebuch wird nicht an uns übertragen. Google Play kann unabhängig davon eigene Absturzstatistiken bereitstellen.
-
-Eine optionale App-Sperre ergänzt die Geräteauthentifizierung. Über die Android-Dateiauswahl kannst du verschlüsselte Backups speichern oder öffnen sowie CSV-Dateien exportieren oder importieren. Du wählst den Speicherort. Ein dort gewählter Cloud-Anbieter kann Dateien über seine eigene App hoch- oder herunterladen. CSV-Dateien sind lesbarer Text, keine verschlüsselten Backups. Android kann App-Daten beim Umzug auf ein unterstütztes neues Handy auch direkt übertragen.
-
-Lokale App-Daten löschst du in den Einstellungen oder durch Deinstallieren. Exportierte Dateien und andere Kopien bleiben an ihrem Speicherort, bis du sie dort löschst.
-
-So, wie es zu dir passt
-Sechs Akzentfarben, helle und dunkle Darstellung sowie Deutsch und Englisch. Trage beim Einrichten frühere Perioden ein oder überspringe den Schritt und beginne mit heute.
+Privat von Anfang an
+FreePeriod. hat keine Internet-Berechtigung und keine Nutzungsanalyse. Deine Einträge bleiben auf deinem Handy. Optionale App-Sperre, verschlüsselte Backups und CSV-Export – du entscheidest, wo Dateien landen.
 
 Klare Grenzen
-FreePeriod. ist kein Medizinprodukt. Die App ist kein Verhütungsmittel und kein Hilfsmittel, um schwanger zu werden. Sie gibt keine medizinische Beratung, stellt keine Diagnosen und empfiehlt keine Behandlung. Alle Daten, auch die Tage mit erhöhter Chance auf Schwangerschaft, sind Kalenderschätzungen aus deinen eigenen Einträgen. Sie können falsch sein und sind nicht verlässlich. Wende dich bei Fragen zu Verhütung, Schwangerschaft oder Gesundheit an Ärztin, Arzt oder Apotheke.
+FreePeriod. ist kein Medizinprodukt, kein Verhütungsmittel und kein Hilfsmittel, um schwanger zu werden. Alle Daten sind Schätzungen aus deinen eigenen Einträgen und können falsch sein. Bei Fragen zu Verhütung, Schwangerschaft oder Gesundheit wende dich an eine Ärztin, einen Arzt oder eine Apotheke.
 
 Ab 13 Jahren.
 Quellcode (GPL-3.0): https://github.com/pavoras/freeperiod
@@ -62,7 +49,7 @@ Willkommen bei FreePeriod. 1.0.0.
 |---|---:|---:|
 | Title | 28 | 30 |
 | Short description | 65 | 80 |
-| Full description | 3304 | 4000 |
+| Full description | 1545 | 4000 |
 | Release notes | 324 | 500 |
 
 Copy only the field content above, not the Markdown headings or this table. Counts use Unicode characters and LF line breaks, excluding the outer blank lines. Replace pavoras and support@jaysay.it before publication and recount after editing. Both locales use the requested title; no price or ranking claim is added to it.
