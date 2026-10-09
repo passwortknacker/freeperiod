@@ -61,6 +61,11 @@ Owner decision 2026-10-09: calendar marks period days by chance (normal start sp
 ≥ 60 % "likely", ≥ 30 % "possible"; the period after next with spread × √2. CSV export is one file (one row
 per day, `period_day`), re-importable. Settings: measured cycle length, archived categories restorable,
 lock intro + 10/15 min.
+Owner feedback 2026-10-09 (later): the period after next counts as "possible" from 20 % (short periods with
+spread × √2 never reach 30 %); always exactly two periods are predicted. Today uses the same accent as every
+screen (light fills too pale on the Today surfaces get a thin border edge instead of a darker shade). Ink is the
+dark, non-pastel alternative (light #2F3440 with light text, dark graphite #9A9EA6); onAccent follows fill
+luminance. Appearance preview: more space between sample days and below the badge.
 
 **Decision 2026-10-08:** both threads are too long (resumes cost 2–4 % weekly quota each). Next rounds start
 fresh with a short handover. Codex quota must last until the reset (Wed 14.10. 10:15); Claude takes small
