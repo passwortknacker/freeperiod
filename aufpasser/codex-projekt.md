@@ -57,6 +57,10 @@ screen (`OneScreenColumn`: calendar takes the rest, legend always visible; large
 pregnancy-chance hint moved from the card into the legend; icon set 24 → 102 picker icons in 10 groups
 (`FpIcons.groups`, `ic_item_*`, spoken names `icon_*`), icon choice also for categories, "sad" is now a face.
 Icon source paths: Claude's generator script (scratchpad) – the XML drawables are the source of truth.
+Owner decision 2026-10-09: calendar marks period days by chance (normal start spread × period length):
+≥ 60 % "likely", ≥ 30 % "possible"; the period after next with spread × √2. CSV export is one file (one row
+per day, `period_day`), re-importable. Settings: measured cycle length, archived categories restorable,
+lock intro + 10/15 min.
 
 **Decision 2026-10-08:** both threads are too long (resumes cost 2–4 % weekly quota each). Next rounds start
 fresh with a short handover. Codex quota must last until the reset (Wed 14.10. 10:15); Claude takes small
