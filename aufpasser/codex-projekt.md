@@ -51,6 +51,13 @@ Fixed rules for Codex live in `AGENTS.md` (created in M0; do not repeat them in 
 | 23 | gpt-6.1-sol/high fresh | (see runde-23.jsonl) | Higher-chance-of-pregnancy days (default on, spec §12) + medical disclaimer, +303 lines. Claude: fixed situation-switch persistence bug, poisoned Gradle build cache (caching off), readability pass, period block, feedback mail, chip grid |
 | 24 | – cancelled | – | Design polish done by Claude instead (Codex quota 39 % on day 2; owner: Codex only for what it does better) |
 
+**Claude-only work since round 24 (no Codex):** 6–8 day higher-chance window around the middle of the
+prediction (Wilcox 1995/2000, Bull 2019); Today calendar scrolls freely, snaps to week rows; Today fits one
+screen (`OneScreenColumn`: calendar takes the rest, legend always visible; large fonts keep 3 weeks and scroll);
+pregnancy-chance hint moved from the card into the legend; icon set 24 → 102 picker icons in 10 groups
+(`FpIcons.groups`, `ic_item_*`, spoken names `icon_*`), icon choice also for categories, "sad" is now a face.
+Icon source paths: Claude's generator script (scratchpad) – the XML drawables are the source of truth.
+
 **Decision 2026-10-08:** both threads are too long (resumes cost 2–4 % weekly quota each). Next rounds start
 fresh with a short handover. Codex quota must last until the reset (Wed 14.10. 10:15); Claude takes small
 and medium work, Codex only big rounds. `~/.codex/config.toml`: `model_auto_compact_token_limit = 150000`.
