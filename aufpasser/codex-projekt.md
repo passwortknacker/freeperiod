@@ -5,8 +5,9 @@ Fixed rules for Codex live in `AGENTS.md` (created in M0; do not repeat them in 
 
 ## Roles
 - Claude = supervisor ("Aufpasser"), owner = Marvin. Short answers to Marvin.
-- Claude weekly quota is scarce → implementation goes to Codex; Claude plans, reviews, verifies,
-  commits.
+- Since round 24 Claude is the main developer (owner prefers raising the Claude plan over running
+  out of Codex). Codex only for big rounds it does better; Claude plans, reviews, verifies, commits.
+- Project state for a new session: `docs/handover.md`.
 
 ## Models
 - Coding: `gpt-6.1-sol`, effort `high`; `xhigh` only after asking Marvin.
@@ -66,6 +67,8 @@ spread × √2 never reach 30 %); always exactly two periods are predicted. Toda
 screen (light fills too pale on the Today surfaces get a thin border edge instead of a darker shade). Ink is the
 dark, non-pastel alternative (light #2F3440 with light text, dark graphite #9A9EA6); onAccent follows fill
 luminance. Appearance preview: more space between sample days and below the badge.
+Release 2026-10-09: plural forms EN/DE, 19 unused strings removed; v1.0.0 versionCode 2 (commit 83fa0dc)
+submitted to Play production review. GitHub account renamed to `pavoras` (site pavoras.github.io/freeperiod).
 
 **Decision 2026-10-08:** both threads are too long (resumes cost 2–4 % weekly quota each). Next rounds start
 fresh with a short handover. Codex quota must last until the reset (Wed 14.10. 10:15); Claude takes small

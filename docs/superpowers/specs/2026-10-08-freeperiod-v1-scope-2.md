@@ -157,3 +157,29 @@ keeps the risk as low as possible:
   medical advice, no diagnosis, no treatment; all estimates are calendar estimates from the user's
   own entries without any reliability) appears: once in onboarding (welcome step), in Settings ›
   Privacy & info, next to the days (info tap), in the store listing and on the website.
+
+## 13. Owner decisions 2026-10-09 (post-polish, shipped in 1.0.0)
+
+- **Prediction as a probability:** the start of the next period is a normal distribution
+  (centre ± spread; spread from cycle history: `max(1, MAD × 1.4826)`, early estimate
+  `max(1.5, (max − min) / 2)`, typed length only 2.5 days). A day's chance of being a period day =
+  sum of start weights over the period length. Calendar: **likely** from 60 %, **possible** from
+  30 % (dashed ring). If no day of the next period reaches 30 %, the start range shows as possible.
+- **Two periods, never more:** the period after next uses centre + cycle length and spread × √2,
+  and counts as possible from **20 %** (short periods with wide spread never reach 30 %). Not shown
+  for a typed length alone. Start-days-only was rejected by the owner.
+- Today card shows no prediction sentence and no basis line when the timeline shows the range; the
+  basis lives in History. Calendar snaps whole week rows; legend in two lines under a divider
+  ("Erwartet"/"Likely", "Möglich"/"Possible").
+- **CSV export:** one file, one row per day, `period_day` column; FreePeriod.'s import reads it back.
+- **Settings:** typical cycle length shows the measured value ("28 Tage") once cycles exist;
+  archived categories can be restored; app lock explains itself when switched on and offers
+  immediately / 1 / 5 / 10 / 15 minutes.
+- **Day entry:** 102 icons in 10 groups for items and categories; opening the note scrolls to it
+  and focuses it.
+- **Accents:** Today uses the same accent as every other screen (pale fills get a thin edge for
+  contrast). Ink is the dark, non-pastel alternative (light #2F3440 with light text, dark graphite
+  #9A9EA6); text on an accent follows the fill's luminance.
+- **Texts:** counts use plural forms in EN and DE ("based on your last cycle", "vor 1 Tag").
+- **Store:** shorter full descriptions, the word "sex" avoided in listing texts; artwork headings
+  use the app's Bricolage cut (SemiBold, opsz 24, normal width), captions ≥ 12 dp on a phone.

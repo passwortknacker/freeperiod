@@ -1,10 +1,11 @@
 # FreePeriod. – rules for Codex
 
 Android app (Kotlin, Compose) + pure-Kotlin `:engine`. Supervisor: Claude ("Aufpasser") sets
-rounds and verifies outside your sandbox. Source of truth: spec
-`docs/superpowers/specs/2026-10-07-freeperiod-design.md` and plan
+rounds and verifies outside your sandbox. Current state: `docs/handover.md`. Source of truth: spec
+`docs/superpowers/specs/2026-10-07-freeperiod-design.md` + revision
+`docs/superpowers/specs/2026-10-08-freeperiod-v1-scope-2.md` (rev 2 wins, incl. §13), plans
 `docs/superpowers/plans/2026-10-07-freeperiod-v1.md` (its "Decisions from plan review" section
-overrides older wording).
+overrides older wording) and `…-v1-part2.md`.
 
 ## Never
 - No `git commit/push/tag/checkout/reset/stash`, no branch changes. Only change the working tree.
