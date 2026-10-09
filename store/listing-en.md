@@ -43,8 +43,8 @@ Honest limits
 FreePeriod. is not a medical device. It is not a method of contraception and not a tool to help you get pregnant. It gives no medical advice, diagnosis or treatment. All dates, including days with a higher chance of pregnancy, are calendar estimates from your own entries. They can be wrong and are not reliable. Talk to a doctor or pharmacist about contraception, pregnancy or health questions.
 
 For ages 13 and up.
-Source code (GPL-3.0): https://github.com/passwortknacker/freeperiod
-Privacy: https://passwortknacker.github.io/freeperiod/privacy/
+Source code (GPL-3.0): https://github.com/pavoras/freeperiod
+Privacy: https://pavoras.github.io/freeperiod/privacy/
 Contact: support@jaysay.it
 
 ## Release notes for 1.0.0
@@ -65,4 +65,4 @@ Welcome to FreePeriod. 1.0.0.
 | Full description | 2898 | 4000 |
 | Release notes | 313 | 500 |
 
-Copy only the field content above, not the Markdown headings or this table. Counts use Unicode characters and LF line breaks, excluding the outer blank lines. Replace passwortknacker and support@jaysay.it before publication and recount after editing. Both locales use the requested title; no price or ranking claim is added to it.
+Copy only the field content above, not the Markdown headings or this table. Counts use Unicode characters and LF line breaks, excluding the outer blank lines. Replace pavoras and support@jaysay.it before publication and recount after editing. Both locales use the requested title; no price or ranking claim is added to it.

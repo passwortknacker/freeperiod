@@ -43,8 +43,8 @@ Klare Grenzen
 FreePeriod. ist kein Medizinprodukt. Die App ist kein Verhütungsmittel und kein Hilfsmittel, um schwanger zu werden. Sie gibt keine medizinische Beratung, stellt keine Diagnosen und empfiehlt keine Behandlung. Alle Daten, auch die Tage mit erhöhter Chance auf Schwangerschaft, sind Kalenderschätzungen aus deinen eigenen Einträgen. Sie können falsch sein und sind nicht verlässlich. Wende dich bei Fragen zu Verhütung, Schwangerschaft oder Gesundheit an Ärztin, Arzt oder Apotheke.
 
 Ab 13 Jahren.
-Quellcode (GPL-3.0): https://github.com/passwortknacker/freeperiod
-Datenschutz: https://passwortknacker.github.io/freeperiod/privacy/de/
+Quellcode (GPL-3.0): https://github.com/pavoras/freeperiod
+Datenschutz: https://pavoras.github.io/freeperiod/privacy/de/
 Kontakt: support@jaysay.it
 
 ## Release notes for 1.0.0
@@ -65,4 +65,4 @@ Willkommen bei FreePeriod. 1.0.0.
 | Full description | 3304 | 4000 |
 | Release notes | 324 | 500 |
 
-Copy only the field content above, not the Markdown headings or this table. Counts use Unicode characters and LF line breaks, excluding the outer blank lines. Replace passwortknacker and support@jaysay.it before publication and recount after editing. Both locales use the requested title; no price or ranking claim is added to it.
+Copy only the field content above, not the Markdown headings or this table. Counts use Unicode characters and LF line breaks, excluding the outer blank lines. Replace pavoras and support@jaysay.it before publication and recount after editing. Both locales use the requested title; no price or ranking claim is added to it.

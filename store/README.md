@@ -18,7 +18,7 @@ Replace these values before publication:
 |---|---|
 | `JaySay (Marvin Kemper)` | Legal organisation name corresponding to the Google Play developer account. |
 | `support@jaysay.it` | Monitored support/privacy contact address, including the mailto links. |
-| `passwortknacker` | Actual GitHub owner in repository and proposed GitHub Pages URLs. If using a custom domain, replace the privacy URLs too. |
+| `pavoras` | Actual GitHub owner in repository and proposed GitHub Pages URLs. If using a custom domain, replace the privacy URLs too. |
 | `PLAY_STORE_URL` | Live Google Play listing URL for `org.freeperiod.app`; the current text badge is a placeholder, not official badge artwork. |
 
 The policies assume GitHub Pages hosting and describe support email handling. Confirm those arrangements, controller contact details, retention practices and any applicable provider/legal-notice requirements before publishing. Play declarations remain proposals for the organisation to review against the live Console and final release. No medical-device certification is claimed. CSV import/export is included because it is an explicit release fact for this round, overriding older plan text that deferred import.

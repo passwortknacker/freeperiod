@@ -63,7 +63,7 @@ A 13+ audience selection is not a blanket statement about minors' consent under 
 
 ## Publication handoff
 
-1. Replace `JaySay (Marvin Kemper)`, `support@jaysay.it` and `passwortknacker`; confirm the organisation's legal identity/contact details and the website/email arrangements described in the policies.
-2. Host `site/` with a public, accessible policy at both language URLs. Proposed GitHub Pages URLs: `https://passwortknacker.github.io/freeperiod/privacy/` and `https://passwortknacker.github.io/freeperiod/privacy/de/`.
+1. Replace `JaySay (Marvin Kemper)`, `support@jaysay.it` and `pavoras`; confirm the organisation's legal identity/contact details and the website/email arrangements described in the policies.
+2. Host `site/` with a public, accessible policy at both language URLs. Proposed GitHub Pages URLs: `https://pavoras.github.io/freeperiod/privacy/` and `https://pavoras.github.io/freeperiod/privacy/de/`.
 3. Compare these answers with the final manifest, dependencies, file-picker flows, backup rules and actual Google Play diagnostic setup. Final review of legal wording and Console declarations belongs to the publishing organisation.
 4. Submit the current questionnaires and keep the answers consistent with each shipped update. No declaration has been submitted by this round.

@@ -6,7 +6,7 @@ Owner = Marvin (Play Console, keys, e-mail). Claude prepares everything else.
 - [ ] Support/privacy e-mail (dedicated Gmail) → replace `CONTACT_EMAIL` in `site/` and `store/`.
 - [ ] Developer name as shown on Play → replace `DEVELOPER_NAME`.
 - [ ] GitHub repo (public at launch, GPL-3.0) → replace `OWNER` in links; enable GitHub Pages
-      from `/site` (or a `gh-pages` branch) → privacy URL `https://OWNER.github.io/freeperiod/privacy/`.
+      via Settings → Pages → Source "GitHub Actions" (workflow `pages.yml` publishes `/site`) → privacy URL `https://pavoras.github.io/freeperiod/privacy/`.
 - [ ] Upload key: run `powershell -File tools\make-upload-key.ps1`, fill the two passwords in
       `%USERPROFILE%\dev-tools\keys\freeperiod-signing.properties`. Back the key up privately.
 - [ ] Play Console: create app "FreePeriod." (default language EN-US, add DE), free, category
