@@ -27,7 +27,7 @@ The user explicitly chooses to export/import CSV or create/open an encrypted bac
 
 A cloud-backed document provider can upload or download a file through its own app. The lack of FreePeriod.'s INTERNET permission does not prevent that other app from using the internet. The proposed “no collected/shared data” answers depend on the current Play treatment of explicit user-initiated file transfers. Confirm that treatment against the actual picker flow and current guidance; do not assume every external transfer is exempt simply because the app lacks INTERNET permission.
 
-Android backup rules exclude automatic cloud backup. Supported Android versions permit system-managed device-to-device transfer. Review the final manifest and backup rules without interpreting `allowBackup=true` alone as permission for cloud backup. No file upload service or periodic automatic cloud backup is part of the app.
+Android backup rules exclude automatic cloud backup. Supported Android versions permit system-managed device-to-device transfer. Review the final manifest and backup rules without interpreting `allowBackup=true` alone as permission for cloud backup. No file upload service or cloud backup is part of the app. From 1.1 the user can turn on an optional automatic backup: on a daily or weekly schedule the app writes an encrypted backup file (user-chosen password, sealed with an Android Keystore key on the device) into a folder the user picked in the system folder picker, and keeps the newest five. If that folder belongs to a cloud app, that app uploads the file, exactly as with a manually saved backup; FreePeriod. still has no network access and the developer receives nothing.
 
 ### Google Play diagnostics, support and the website
 

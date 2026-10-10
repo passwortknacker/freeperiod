@@ -1,6 +1,6 @@
 # FreePeriod. – project state and handover
 
-Last updated: 2026-10-10 (1.0.0 in Play review; 1.1 scoped). Read this first in a new session,
+Last updated: 2026-10-10 (1.0.0 in Play review; 1.1 in progress: copper, customize, auto backup done). Read this first in a new session,
 then `AGENTS.md` (rules) and `aufpasser/codex-projekt.md` (Codex rounds and decision log).
 
 ## 1. What it is
@@ -65,7 +65,7 @@ Robolectric 4.16.1, Roborazzi 1.50.0, compileSdk/targetSdk 36, minSdk 26. Offlin
 | signed AAB | `gradle -q --offline -Pfreeperiod.signing="$USERPROFILE/dev-tools/keys/freeperiod-signing.properties" :app:bundleRelease` → `app/build/outputs/bundle/release/app-release.aab`; verify with `jarsigner -verify` and that the manifest has no INTERNET |
 | debug APK for the owner | `app/build/outputs/apk/debug/app-debug.apk` (built by `-Voll`), send with SendUserFile |
 
-Last full gate: 376 tests green (2026-10-09). 63 screenshot references.
+Last full gate: 551 tests green (2026-10-10). 69 screenshot references.
 
 Working habits that matter here:
 - Long runs (gate, recording) in the background **with a watcher** (progress every ≤ 5–15 min,
@@ -83,12 +83,15 @@ Working habits that matter here:
 
 - `:engine` (pure Kotlin, JVM tests): `Model.kt`, `PeriodRules.kt`, `Prediction.kt` (probability
   model, see §6), `Fertility.kt` (higher-chance days), `Situation.kt`, `PillSchedule.kt`,
-  `Reminders.kt`/`Recurrence.kt`, `Timeline.kt`, `Stats.kt`, `backup/` (encrypted codec, schema 2,
-  V1 reader), `export/CsvExport.kt`, `import/CsvImport.kt`.
-- `:app` (Compose, manual DI in `AppContainer`): `data/` (Room DB version 2 + `Migrations.kt`,
-  `SettingsStore` DataStore), `backup/`, `lock/AppLock.kt`, `reminders/` (WorkManager, boot/time
+  `Reminders.kt`/`Recurrence.kt`, `Timeline.kt`, `Stats.kt`, `backup/` (encrypted codec, schema 3,
+  readers for 1 and 2), `EntrySelection`/`EntryAppearance`/`EntryCsv` (own items, labels/icons, CSV names), `export/CsvExport.kt`, `import/CsvImport.kt`.
+- `:app` (Compose, manual DI in `AppContainer`): `data/` (Room DB version 3 + `Migrations.kt`,
+  `SettingsStore` DataStore), `backup/` (incl. `AutoBackup`, `KeystoreSeal`, `AutoBackupWorker`), `lock/AppLock.kt`, `reminders/` (WorkManager, boot/time
   receivers), `ui/` (`today`, `day`, `history`, `settings`, `onboarding`, `nav`, `components`,
   `theme`).
+- Own items (own moods, symptoms …) are tags in hidden categories `builtin:mood|pain|sex|discharge|symptoms`;
+  built-in enums and DayLog fields never change. Renames/icons live in `UiOverride.label/iconKey`.
+- Stored formats only grow (AGENTS.md data-compatibility rule).
 - Dates are `LocalDate` stored as epoch day; `clock: () -> LocalDate` injected; enums by name.
 - All texts in `res/values/strings.xml` (EN) and `res/values-de/strings.xml` (DE); counts use
   `<plurals>`.
@@ -118,8 +121,10 @@ Working habits that matter here:
   customize everything (Stage A rename/icon/hide/reorder, Stage B own items; flow Stage A only);
   medication log (off by default, user-typed names, name + count); "Pain diary" item set instead
   of an endometriosis setting; menopause items + static bleeding note; PDF summary; automatic
-  backup. Widget → 1.2. Next: Claude starts automatic backup/PDF and plans Stage A+B; the data
-  model round goes to Codex after the reset (Wed 2026-10-14).
+  backup. Widget → 1.2. **Done:** copper (01dec31), customize A+B (c1baa6a, round 25), automatic
+  backup (merged branch `auto-backup`). **Next (Claude):** medication log, pain diary item set,
+  menopause items + monthly symptom trends, PDF summary. At release: versionCode 3, privacy pages,
+  store texts, health declaration check (`docs/release.md`).
 - Known cosmetic: store screenshots show a half calendar row above the legend (real app rendering);
   the DE day-entry screenshot shows the "Sex" row at the bottom (owner avoided the word in the
   listing text; offer a change if it matters).
