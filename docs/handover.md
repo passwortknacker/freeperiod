@@ -65,7 +65,7 @@ Robolectric 4.16.1, Roborazzi 1.50.0, compileSdk/targetSdk 36, minSdk 26. Offlin
 | signed AAB | `gradle -q --offline -Pfreeperiod.signing="$USERPROFILE/dev-tools/keys/freeperiod-signing.properties" :app:bundleRelease` → `app/build/outputs/bundle/release/app-release.aab`; verify with `jarsigner -verify` and that the manifest has no INTERNET |
 | debug APK for the owner | `app/build/outputs/apk/debug/app-debug.apk` (built by `-Voll`), send with SendUserFile |
 
-Last full gate: 567 tests green (2026-10-10). 74 screenshot references.
+Last full gate: 570 tests green (2026-10-10). 74 screenshot references.
 
 Working habits that matter here:
 - Long runs (gate, recording) in the background **with a watcher** (progress every ≤ 5–15 min,
@@ -124,7 +124,11 @@ Working habits that matter here:
   backup. Widget → 1.2. **Done:** copper (01dec31), customize A+B (c1baa6a, round 25), automatic
   backup (merged branch `auto-backup`), delete after archive + restore defaults, medication log
   (counts, Room 4), pain diary (My situation › Also track), menopause items, PDF summary – details in the
-  1.1 spec §2. **Next:** owner tests the APK; then release prep: versionCode 3, privacy pages, store
+  1.1 spec §2. Owner feedback round (f216bd3): version 1.1.0 / versionCode 3, debug builds
+  `1.1.0-dev.<commit count>` shown at the bottom of Settings; mood/pain charts in History (entries only,
+  56 days). Home cycle view (swipe calendar ↔ ring, pure extension): owner picks one of 3 drafts
+  (A dot ring, B soft ring, C horizon arc + week strip; renderer `scratchpad` only, rebuild if needed).
+  **Next:** owner tests the APK; then release prep: privacy pages, store
   texts (mention medication log, pain diary, PDF), Play health declaration check (`docs/release.md`).
 - Known cosmetic: store screenshots show a half calendar row above the legend (real app rendering);
   the DE day-entry screenshot shows the "Sex" row at the bottom (owner avoided the word in the
