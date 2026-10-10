@@ -26,7 +26,10 @@ warns or interprets. This applies to every text, icon, screen, store listing and
 `Method.COPPER_CHAIN` (Kupferkette, frameless IUD) and `Method.COPPER_BALL` (Kupferball, IUB).
 Same behaviour as `IUD_COPPER`: non-hormonal (higher-chance days allowed), one-time reminder preset.
 
-### 2.2 Customize everything
+### 2.2 Customize everything (done 2026-10-10, round 25 + Claude)
+Implemented: own items are tags in hidden `builtin:<field>` categories; renames/icons in `UiOverride.label/iconKey`;
+own categories are "Pick one", "Pick several" or "Count" (`singleChoice`, `counted`). Archive first, then
+"Delete" for good (also removes the item from past days); "Restore defaults" clears all overrides only.
 Owner wish: nothing is set in stone. Two stages, both in 1.1.
 
 **Stage A – change what exists:** for every built-in category and item: rename, change icon,
@@ -51,7 +54,10 @@ CSV keeps built-in keys and writes own items by name (import matches by name, cr
 `builtin:symptoms` category – the design round decides whether to keep or fold them into options.
 Scales (mood, pain) use the user's order wherever an order matters.
 
-### 2.3 Medication log
+### 2.3 Medication log (done 2026-10-10)
+Implemented as built-in category `medication` (hidden by default) whose items are own tags in `builtin:medication`;
+counts per day live in `DayLog.tagCounts` (only counts ≥ 2, Room `day_tags.count`, Room 4), CSV column `medication`
+with `name:count`. Also switchable in My situation › Also track.
 - A category type for anything the user takes; available to everyone, **off by default**.
 - The user adds their own entries (name, optionally with strength, e.g. "Ibuprofen 400 mg" –
   typed by the user, never suggested). Per day: tap to log, +/− for how many times.
@@ -60,27 +66,34 @@ Scales (mood, pain) use the user's order wherever an order matters.
 - No preset list, no reminders offered from this category (general reminders exist).
 - Hormone therapy in menopause is logged here; no separate HRT feature.
 
-### 2.4 Pain diary item set (instead of an "endometriosis" setting)
+### 2.4 Pain diary item set (instead of an "endometriosis" setting) (done 2026-10-10)
+Implemented as a switch in My situation › Also track (`Situation.painDiary`); its categories carry
+`CustomCategory.itemSet = "pain_diary:<where|during|daily>"` so turning it on again restores instead of duplicating.
+Turning it off asks "Keep them / Hide them" (hide = archive). No 0–10 scale yet.
 Under Customize day entry: "Add an item set → Pain diary". Turns on, once: Pain, Medication, and
 creates editable categories "Where it hurts" (lower belly, back, legs, pelvis, head …), "Pain
 during" (sex, bowel movements, peeing), "Daily life" (missed work/school, cancelled plans, rested
 in bed). Everything stays renamable/hideable; removing the set asks whether to hide its items too;
 entries are never deleted. No disease name anywhere. Open: 0–10 pain scale as a set option.
 
-### 2.5 Menopause additions
+### 2.5 Menopause additions (done 2026-10-10)
+Symptoms VAGINAL_DRYNESS, HEART_RACING (peri/menopause only), MOOD_SWINGS, LOW_LIBIDO (everyone, up front in
+peri/menopause); bleeding note in My situation for MENOPAUSE; monthly symptom view also in PERIMENOPAUSE.
 - New built-in symptom items for peri-/menopause (shown automatically in those phases, hideable):
   vaginal dryness, mood swings, heart racing, low sex drive (exact list/wording in the round).
 - Static sentence in the menopause phase description: bleeding after a year without periods is
   worth mentioning to a doctor. Never triggered by the user's entries.
 - Symptom trends by month in History (spec rev 2 already plans a monthly view for menopause).
 
-### 2.6 PDF summary
+### 2.6 PDF summary (done 2026-10-10)
+Settings › Summary as PDF: last 3/6/12 months or everything, notes off by default; engine `summary()` (facts),
+app `summary/SummaryPdf.kt` (rows + A4 PdfDocument), saved via CreateDocument.
 "Summary of your entries" for a chosen range (3/6/12 months or custom): periods and cycle
 lengths, a day grid with flow, pain, medication counts and symptoms, optional notes (off by
 default). Android `PdfDocument`, saved via the system file picker / share sheet (no INTERNET).
 No scores, no flags, no interpretation; "not a medical device" note on every page.
 
-### 2.7 Automatic backup
+### 2.7 Automatic backup (done 2026-10-10)
 Encrypted with the user's backup password into a folder the user picks (persistable SAF tree);
 daily or weekly via WorkManager; keeps the last 5 files; shows the last successful backup and a
 quiet notice when it fails. The password is stored encrypted with an Android Keystore key. If a
