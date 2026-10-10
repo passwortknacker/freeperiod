@@ -1,0 +1,55 @@
+Round 25 – FreePeriod. 1.1: "Customize everything" (Stage A + B). Rules: AGENTS.md (read it, incl. the new
+"not a medical device" rule). Scope: engine/, app/ (main + test). Spec: docs/superpowers/specs/2026-10-10-freeperiod-v1.1-scope.md §2.2.
+
+Context: owner (Marvin) wants nothing set in stone in the day entry: "if I want to reduce 5 moods to 4 or make it 6,
+I can". Today the user can hide/reorder categories, hide built-in items, add custom multi-select categories, and add own
+symptoms (stored as tags in the custom category with iconKey "builtin:symptoms"). Missing: renaming and re-iconing
+built-in categories/items, reordering items inside a category, own items for the other built-in fields, single-choice
+custom categories, deleting own items. Another session works on automatic backup in parallel (BackupScreen,
+SettingsStore, reminders/WorkManager): do not touch those files except where this round strictly needs it.
+
+Binding design (keep stored data valid, smallest migration):
+D1. Own items are always tags (TagEntity), exactly like own symptoms today. Generalise the "builtin:symptoms" trick:
+    one hidden marker category per built-in field that accepts own items: builtin:mood, builtin:pain, builtin:sex,
+    builtin:discharge (+ the existing builtin:symptoms). Create them lazily when the first own item is added.
+D2. Built-in enums and DayLog fields stay unchanged (mood: Mood?, symptoms: Set<Symptom> …). Own items live in
+    DayLog.tagIds. Single-choice fields are exclusive across built-in + own items: choosing a built-in mood removes the
+    field's own mood tags from tagIds; choosing an own mood tag sets mood = null and removes other own mood tags.
+    Enforce this in one place (engine or ViewModel) with unit tests, not scattered in the UI.
+D3. CustomCategory gets `singleChoice: Boolean = false` (same exclusivity among its tags). Add it to the "add/edit
+    category" dialog as a choice "Pick one / Pick several" (DE: "Eins wählen / Mehrere wählen").
+D4. UiOverride gets `label: String? = null` and `iconKey: String? = null`, used for keys category:<field>,
+    item:<field>:<ENUM>, customCategory:<id> is NOT needed (custom categories/tags are renamed in their own rows).
+    A renamed built-in shows the user's text in every language; "Reset name and icon" restores the translated default.
+D5. Flow and ovulation test: Stage A only (rename, icon, hide, reorder; no own items) – flow LIGHT+ drives period
+    suggestions in PeriodRules; do not change that logic.
+D6. Room 2 → 3: ALTER TABLE adds ui_overrides.label, ui_overrides.iconKey (nullable) and
+    custom_categories.singleChoice (NOT NULL DEFAULT 0). MigrationTest from a v2 database with data.
+D7. Backup schema 3 (new fields); decoder accepts 1, 2 and 3; validation updated; round-trip test; a schema-2 backup
+    still restores. CSV: own items of a built-in field are written into that field's column by name (mood column gets
+    the own mood's name), built-ins keep their stable enum names; import maps unknown names in a field column to the
+    field's own items (creating missing ones). Round-trip test incl. an own mood and an own symptom.
+
+Requirements (acceptance):
+1. Settings › Customize day entry: per category (built-in and custom) rename + icon (reuse IconPicker), hide, reorder
+   categories (exists). Expanding a category lists ALL its items (built-in + own, hidden ones greyed), each with:
+   visibility switch, rename + icon, reorder (up/down like categories), and for own items Delete (archive if used in
+   any day log – stays visible in History/day view of past days; hard delete if never used). "Add item" exists for
+   every category except flow and ovulation test.
+2. Day entry sheet renders any number of items (1–10) for every single-choice field without clipping at
+   w360dp + font scale 1.3: mood keeps faces for built-ins, own items use their icon; same chip style.
+3. One label/icon resolver (built-in default → override → own tag) used everywhere items are shown: day entry,
+   customize screen, History/day details, Today if it shows items, TalkBack descriptions.
+4. Reordering applies everywhere the items are listed. Hidden items stay readable on past days that used them.
+5. Texts EN + DE (new strings only where needed; warm, short; e.g. "Rename", "Reset name and icon", "Delete item",
+   "Pick one", "Pick several"). No medical wording.
+6. Tests: engine/unit tests for exclusivity, resolver, migration, backup v2→v3, CSV round trip; Roborazzi screenshot
+   tests (write them, Claude records): customize screen with an expanded mood category incl. an own 6th mood,
+   day entry sheet with 6 moods (light + dark), rename dialog.
+
+Non-goals: medication, pain diary item set, menopause items, PDF, automatic backup (later rounds / other session).
+No new dependencies. Do not change prediction, fertility, period rules, reminders, backup encryption.
+
+Simplicity: prefer generalising the existing builtin:symptoms/tag/override mechanisms over new tables or layers.
+Check: tools\check.ps1 -Schnell must be green. Answer per AGENTS.md, incl. net lines changed, what you removed, and
+the list of new screenshot tests for Claude to record.

@@ -40,6 +40,10 @@ overrides older wording) and `…-v1-part2.md`. For 1.1: `docs/superpowers/specs
 - Not a medical device or service (1.1 spec §1): the app is a diary. No medicine names, doses,
   dose limits or warnings; no evaluation or interpretation of entries; no setting or text named
   after a disease; no "treatment/therapy/manage/diagnosis" wording. Only "log", "note", "summary".
+- Data compatibility (owner rule): every stored format (Room, backup schema, CSV, DataStore) only
+  grows. Never rename or reuse persisted keys/enum names; new fields get defaults; each Room version
+  has a tested migration; each backup schema keeps a reader for all older ones; CSV stays
+  re-importable. Prefer extending existing mechanisms over parallel ones, so later features fit in.
 - Manual DI via `AppContainer`; no Hilt/Koin. Keep files focused (one responsibility each).
 - Simplicity (owner rule): find the cause, prefer removing or streamlining over adding layers,
   special cases or retries. Report net lines changed and what you removed.
