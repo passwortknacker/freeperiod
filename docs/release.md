@@ -32,3 +32,12 @@ Owner = Marvin (Play Console, keys, e-mail). Claude prepares everything else.
 ## Not in v1.0 (by decision)
 Fertile window (regulatory, spec rev 2 §11) · Clue/Flo import (waiting for example files) ·
 widget/tile/PDF/Health Connect/auto backup (v1.1) · supporter purchase (later).
+
+## v1.1 (open items before upload)
+- [ ] versionCode 3, versionName 1.1.0.
+- [ ] Privacy pages EN/DE §4 (`site/privacy/`): add the optional automatic backup (encrypted file on a
+      daily/weekly schedule into a user-chosen folder; a cloud app syncing that folder uploads it; the app
+      has no network access). Publish together with the release, not before.
+- [ ] Store texts: medication log in neutral words ("log what you take"), no disease names (1.1 spec §1).
+- [ ] Play health-apps declaration: check whether medication logging needs ticking; data safety stays
+      "no data collected" (`store/data-safety.md` already describes automatic backup).
