@@ -5,7 +5,8 @@ rounds and verifies outside your sandbox. Current state: `docs/handover.md`. Sou
 `docs/superpowers/specs/2026-10-07-freeperiod-design.md` + revision
 `docs/superpowers/specs/2026-10-08-freeperiod-v1-scope-2.md` (rev 2 wins, incl. §13), plans
 `docs/superpowers/plans/2026-10-07-freeperiod-v1.md` (its "Decisions from plan review" section
-overrides older wording) and `…-v1-part2.md`.
+overrides older wording) and `…-v1-part2.md`. For 1.1: `docs/superpowers/specs/2026-10-10-freeperiod-v1.1-scope.md`
+(wins over older specs for 1.1 work).
 
 ## Never
 - No `git commit/push/tag/checkout/reset/stash`, no branch changes. Only change the working tree.
@@ -36,6 +37,9 @@ overrides older wording) and `…-v1-part2.md`.
 - All user-visible text in `res/values/strings.xml` (EN) **and** `res/values-de/strings.xml`
   (DE), consistent, short, warm, neutral "you"/"du", no gendered wording, no "late", no
   contraception/conception claims.
+- Not a medical device or service (1.1 spec §1): the app is a diary. No medicine names, doses,
+  dose limits or warnings; no evaluation or interpretation of entries; no setting or text named
+  after a disease; no "treatment/therapy/manage/diagnosis" wording. Only "log", "note", "summary".
 - Manual DI via `AppContainer`; no Hilt/Koin. Keep files focused (one responsibility each).
 - Simplicity (owner rule): find the cause, prefer removing or streamlining over adding layers,
   special cases or retries. Report net lines changed and what you removed.

@@ -1,6 +1,6 @@
 # FreePeriod. – project state and handover
 
-Last updated: 2026-10-09 (after submitting v1.0.0 for Play review). Read this first in a new session,
+Last updated: 2026-10-10 (1.0.0 in Play review; 1.1 scoped). Read this first in a new session,
 then `AGENTS.md` (rules) and `aufpasser/codex-projekt.md` (Codex rounds and decision log).
 
 ## 1. What it is
@@ -24,7 +24,7 @@ permission, no analytics/crash SDKs. Not a medical device, not contraception. GP
 | Play package | `org.freeperiod.app` (debug: `org.freeperiod.app.debug`) |
 | Store texts | `store/listing-en.md`, `store/listing-de.md` (with character counts), `store/data-safety.md` |
 | Store artwork | `store/*.html` → `python tools/render-store.py` → `store/png/` (6 EN + 6 DE screenshots, feature graphic, `icon-512.png`); inputs are the Roborazzi references in `app/src/test/screenshots/` |
-| Spec | `docs/superpowers/specs/2026-10-07-freeperiod-design.md` + **rev 2** `2026-10-08-freeperiod-v1-scope-2.md` (rev 2 wins; §13 = decisions of 2026-10-09) |
+| Spec | `docs/superpowers/specs/2026-10-07-freeperiod-design.md` + **rev 2** `2026-10-08-freeperiod-v1-scope-2.md` (rev 2 wins; §13 = decisions of 2026-10-09) + **1.1 scope** `2026-10-10-freeperiod-v1.1-scope.md` (wins for 1.1) |
 | Plans | `docs/superpowers/plans/2026-10-07-freeperiod-v1.md`, `…-v1-part2.md` |
 | Release checklist | `docs/release.md` |
 | Design reference | `docs/design/drafts/draft-5.png` (final), Daylight palette in `ui/theme/` |
@@ -113,9 +113,13 @@ Working habits that matter here:
 - Wait for Play review; then §3 "When Google approves".
 - Pre-launch report in Play Console: ask the owner for a screenshot, fix anything real.
 - After launch: watch Android vitals and reviews (draft replies for the owner).
-- v1.1 candidates (owner to prioritise): home-screen widget, PDF export for the doctor,
-  Health Connect, automatic backup, Clue/Flo import (needs example files), supporter purchase.
-  Big rounds → Codex after the quota reset.
+- **1.1 (decided 2026-10-10, see 1.1 scope spec):** ground rule "diary, not a medical device"
+  (no medicine names/doses/advice, no disease-named modes); copper chain + copper ball (done);
+  customize everything (Stage A rename/icon/hide/reorder, Stage B own items; flow Stage A only);
+  medication log (off by default, user-typed names, name + count); "Pain diary" item set instead
+  of an endometriosis setting; menopause items + static bleeding note; PDF summary; automatic
+  backup. Widget → 1.2. Next: Claude starts automatic backup/PDF and plans Stage A+B; the data
+  model round goes to Codex after the reset (Wed 2026-10-14).
 - Known cosmetic: store screenshots show a half calendar row above the legend (real app rendering);
   the DE day-entry screenshot shows the "Sex" row at the bottom (owner avoided the word in the
   listing text; offer a change if it matters).
